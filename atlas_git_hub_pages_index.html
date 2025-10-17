@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Atlas · PD1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-neutral-950 text-neutral-100">
+  <div id="root"></div>
+
+  <!-- React 18 + ReactDOM (UMD) -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <!-- Babel per usare JSX direttamente in pagina (semplice per GitHub Pages) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useEffect, useMemo, useRef, useState } = React;
+
+    const CONFIG = {
+      groupName: "Atlas",
+      academicYear: "2025/2026",
+      repoUrl: "https://github.com/<org>/<repo>",
+    };
+
+    const canStore = typeof window !== "undefined" && typeof window.localStorage !== "undefined";
+    const save = (k, v) => { try { if (canStore) window.localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+    const load = (k, fb) => { try { if (canStore) { const v = window.localStorage.getItem(k); return v ? JSON.parse(v) : fb; } } catch {} return fb; };
+
+    function App() {
+      return (
+        <div className="min-h-screen">
+          <Header />
+          <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <Hero />
+            <NavQuick />
+            <Section id="candidatura" title="Candidatura">
+              <DocSection code="CAN" defaultDocs={CANDIDATURA_DOCS} descr="Qui raccogli i materiali per la fase di candidatura ai capitolati: lettera di candidatura, ranking preferenze, motivazioni e verbali collegati." />
+            </Section>
+            <Section id="rtb" title="RTB – Requirements & Technology Baseline">
+              <DocSection code="RTB" defaultDocs={RTB_DOCS} descr="Documenti versione 1.0.0 per la RTB. Mantieni i link ai PDF e, se vuoi, note sintetiche su decisioni prese." />
+            </Section>
+            <Section id="pb" title="PB – Product Baseline (MVP)">
+              <DocSection code="PB" defaultDocs={PB_DOCS} descr="Documenti versione 2.0.0 e link alla demo MVP. Inserisci qui i link finali approvati e gli appunti per la presentazione con Cardin." />
+            </Section>
+            <Section id="presentazione" title="Presentazione & Comunicazioni">
+              <CommsSection />
+            </Section>
+          </main>
+          <Footer />
+        </div>
+      );
+    }
+
+    function Header() {
+      const items = useMemo(() => ([
+        ["Candidatura", "#candidatura"],
+        ["RTB", "#rtb"],
+        ["PB", "#pb"],
+        ["Presentazione & Comunicazioni", "#presentazione"],
+      ]), []);
+      return (
+        <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-neutral-950/70 border-b border-neutral-800">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" className="font-semibold tracking-tight text-lg"><span className="text-emerald-400">Atlas</span> · PD1</a>
+            <nav className="hidden md:flex gap-6 text-neutral-300">
+              {items.map(([label, href]) => (
+                <a key={href} href={href} className="hover:text-white transition-colors">{label}</a>
+              ))}
+            </nav>
+          </div>
+        </header>
+      );
+    }
+
+    function Hero() {
+      return (
+        <section className="py-10 sm:py-14">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight">Sito di progetto <span className="text-emerald-400">Atlas</span></h1>
+              <p className="mt-3 text-neutral-300 max-w-prose">Versione semplice: solo ciò che serve per PD1. Inserisci i link ai documenti, le note e i riferimenti per ciascuna fase.</p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Button as="a" href={CONFIG.repoUrl} target="_blank">Apri repository</Button>
+                <Button as="a" href="#presentazione" variant="ghost">Vai alle comunicazioni</Button>
+              </div>
+            </div>
+            <SimpleCard />
+          </div>
+        </section>
+      );
+    }
+
+    function NavQuick() {
+      const items = [
+        {label: "Candidatura", href: "#candidatura"},
+        {label: "RTB", href: "#rtb"},
+        {label: "PB", href: "#pb"},
+        {label: "Presentazione & Comunicazioni", href: "#presentazione"},
+      ];
+      return (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-6">
+          {items.map((x) => (
+            <a key={x.label} href={x.href} className="group border border-neutral-800 rounded-2xl p-4 hover:border-emerald-500/60 transition-colors">
+              <div className="text-sm text-neutral-400">Sezione</div>
+              <div className="text-lg font-medium group-hover:text-white">{x.label} →</div>
+            </a>
+          ))}
+        </div>
+      );
+    }
+
+    function Section({ id, title, children }) {
+      return (
+        <section id={id} className="py-8 sm:py-12">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6">{title}</h2>
+          {children}
+        </section>
+      );
+    }
+
+    function SimpleCard() {
+      const list = [
+        ["Candidatura", "Lettera, preferenze, motivazioni"],
+        ["RTB", "AdR, NdP, PdP, PdQ, Glossario"],
+        ["PB", "ST, MU, MS, Lettera PB, Verbali"],
+        ["Presentazione", "Slide, email ufficiali, verbali esterni"],
+      ];
+      return (
+        <div className="border border-neutral-800 rounded-3xl p-6">
+          <div className="text-sm text-neutral-400 mb-2">Contenuti previsti</div>
+          <ul className="text-neutral-200 text-sm space-y-2">
+            {list.map(([k,v]) => (
+              <li key={k} className="flex items-center justify-between"><span className="font-medium">{k}</span><span className="text-neutral-400">{v}</span></li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    function DocSection({ code, defaultDocs, descr }) {
+      const key = `atlas.docs.${code}`;
+      const [docs, setDocs] = useState(() => load(key, defaultDocs));
+      const [notes, setNotes] = useState(() => load(`${key}.notes`, ""));
+      const saveNotesRef = useRef();
+      useEffect(()=>save(key, docs), [docs]);
+      useEffect(()=>{ clearTimeout(saveNotesRef.current); saveNotesRef.current = setTimeout(()=>save(`${key}.notes`, notes), 150); return () => clearTimeout(saveNotesRef.current); }, [key, notes]);
+      const setField = (i, patch) => setDocs(ds => ds.map((d,idx) => idx===i ? ({...d, ...patch}) : d));
+      return (
+        <div className="space-y-4">
+          <p className="text-neutral-300">{descr}</p>
+          <div className="overflow-x-auto border border-neutral-800 rounded-2xl">
+            <table className="w-full text-sm">
+              <thead className="bg-neutral-900/60 text-neutral-300">
+                <tr>
+                  <th scope="col" className="text-left px-4 py-3">Documento</th>
+                  <th scope="col" className="text-left px-4 py-3">Versione</th>
+                  <th scope="col" className="text-left px-4 py-3">Link</th>
+                  <th scope="col" className="text-left px-4 py-3">Stato</th>
+                </tr>
+              </thead>
+              <tbody>
+                {docs.map((d, i) => (
+                  <tr key={d.code} className="border-t border-neutral-800">
+                    <td className="px-4 py-3"><div className="font-medium">{d.name}</div><div className="text-neutral-400">{d.code}</div></td>
+                    <td className="px-4 py-3 w-28"><input value={d.version} onChange={e=>setField(i,{version:e.target.value})} className="w-24 rounded-lg border border-neutral-800 bg-neutral-900/60 px-2 py-1"/></td>
+                    <td className="px-4 py-3"><input value={d.url} onChange={e=>setField(i,{url:e.target.value})} placeholder="https://…" className="w-64 md:w-96 rounded-lg border border-neutral-800 bg-neutral-900/60 px-2 py-1"/>{d.url && <a className="ml-2 underline text-emerald-400" href={d.url} target="_blank" rel="noopener noreferrer">Apri</a>}</td>
+                    <td className="px-4 py-3 w-40"><select value={d.status} onChange={e=>setField(i,{status:e.target.value})} className="rounded-lg border bg-neutral-900/60 border-neutral-800 px-2 py-1">{["Bozza","In revisione","Approvato"].map(s => <option key={s} value={s}>{s}</option>)}</select></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="border border-neutral-800 rounded-2xl p-4">
+            <div className="text-sm text-neutral-400 mb-2">Note sintetiche</div>
+            <textarea value={notes} onChange={e=>setNotes(e.target.value)} rows={4} placeholder="Appunti, decisioni, TODO…" className="w-full rounded-xl border border-neutral-800 bg-neutral-900/60 px-3 py-2"></textarea>
+          </div>
+        </div>
+      );
+    }
+
+    const CANDIDATURA_DOCS = [
+      { code: "LetteraCand", name: "Lettera di candidatura", version: "1.0.0", url: "", status: "Bozza" },
+      { code: "Preferenze", name: "Preferenze capitolati", version: "1.0.0", url: "", status: "Bozza" },
+      { code: "Motivazioni", name: "Motivazioni di scelta", version: "1.0.0", url: "", status: "Bozza" },
+      { code: "VerbExt", name: "Verbale esterno (azienda)", version: "1.0.0", url: "", status: "Bozza" },
+    ];
+
+    const RTB_DOCS = [
+      { code: "AdR", name: "Analisi dei Requisiti", version: "1.0.0", url: "", status: "Bozza" },
+      { code: "NdP", name: "Norme di Progetto", version: "1.0.0", url: "", status: "Bozza" },
+      { code: "PdP", name: "Piano di Progetto", version: "1.0.0", url: "", status: "Bozza" },
+      { code: "PdQ", name: "Piano di Qualifica", version: "1.0.0", url: "", status: "Bozza" },
+      { code: "Glo", name: "Glossario", version: "1.0.0", url: "", status: "Bozza" },
+    ];
+
+    const PB_DOCS = [
+      { code: "ST", name: "Specifica Tecnica", version: "2.0.0", url: "", status: "Bozza" },
+      { code: "MU", name: "Manuale Utente", version: "2.0.0", url: "", status: "Bozza" },
+      { code: "MS", name: "Manuale Sviluppatore", version: "2.0.0", url: "", status: "Bozza" },
+      { code: "LPB", name: "Lettera di Presentazione PB", version: "2.0.0", url: "", status: "Bozza" },
+      { code: "Verb", name: "Verbali interni/esterni", version: "2.x.x", url: "", status: "Bozza" },
+    ];
+
+    function CommsSection() {
+      const key = `atlas.comms`;
+      const [slideUrl, setSlideUrl] = useState(() => load(`${key}.slides`, ""));
+      const [emailModels, setEmailModels] = useState(() => load(`${key}.emails`, DEFAULT_EMAILS).map((m, i) => ({ id: m.id || `${i}-${(m.title||"email").toLowerCase().replace(/\s+/g,"-")}`, ...m })));
+      const [annunci, setAnnunci] = useState(() => load(`${key}.annunci`, ""));
+      const saveAnnRef = useRef();
+      useEffect(()=>save(`${key}.slides`, slideUrl), [slideUrl]);
+      useEffect(()=>save(`${key}.emails`, emailModels), [emailModels]);
+      useEffect(()=>{ clearTimeout(saveAnnRef.current); saveAnnRef.current = setTimeout(()=>save(`${key}.annunci`, annunci), 150); return () => clearTimeout(saveAnnRef.current); }, [key, annunci]);
+      const setEmail = (i, patch) => setEmailModels(ms => ms.map((m,idx)=> idx===i ? ({...m, ...patch}) : m));
+      return (
+        <div className="space-y-4">
+          <div className="border border-neutral-800 rounded-2xl p-4">
+            <div className="text-sm text-neutral-400 mb-2">Slide presentazione (link)</div>
+            <input value={slideUrl} onChange={e=>setSlideUrl(e.target.value)} placeholder="https://…" className="w-full rounded-xl border border-neutral-800 bg-neutral-900/60 px-3 py-2"/>
+          </div>
+          <div className="border border-neutral-800 rounded-2xl p-4">
+            <div className="text-lg font-semibold mb-2">Modelli email/annunci</div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-neutral-900/60 text-neutral-300">
+                  <tr>
+                    <th scope="col" className="text-left px-4 py-3">Titolo</th>
+                    <th scope="col" className="text-left px-4 py-3">Destinatari</th>
+                    <th scope="col" className="text-left px-4 py-3">Messaggio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {emailModels.map((m, i) => (
+                    <tr key={m.id} className="border-t border-neutral-800 align-top">
+                      <td className="px-4 py-3 w-56"><input value={m.title} onChange={e=>setEmail(i,{title:e.target.value})} className="w-full rounded-lg border border-neutral-800 bg-neutral-900/60 px-2 py-1"/></td>
+                      <td className="px-4 py-3 w-56"><input value={m.to} onChange={e=>setEmail(i,{to:e.target.value})} className="w-full rounded-lg border border-neutral-800 bg-neutral-900/60 px-2 py-1"/></td>
+                      <td className="px-4 py-3"><textarea rows={3} value={m.body} onChange={e=>setEmail(i,{body:e.target.value})} className="w-full rounded-lg border border-neutral-800 bg-neutral-900/60 px-2 py-2"></textarea></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="border border-neutral-800 rounded-2xl p-4">
+            <div className="text-sm text-neutral-400 mb-2">Comunicazioni / annunci rapidi (bacheca)</div>
+            <textarea value={annunci} onChange={e=>setAnnunci(e.target.value)} rows={4} placeholder="Messaggi al team, link a verbali esterni, note per Cardin/Tullio…" className="w-full rounded-xl border border-neutral-800 bg-neutral-900/60 px-3 py-2"></textarea>
+          </div>
+        </div>
+      );
+    }
+
+    const DEFAULT_EMAILS = [
+      { id: "diario", title: "Invio diario di bordo", to: "Docenti/Committente", body: `Buongiorno,\nvi inoltriamo il diario di bordo aggiornato al …\nCordiali saluti,\nTeam Atlas` },
+      { id: "incontro", title: "Richiesta incontro proponente", to: "Azienda proponente", body: `Buongiorno,\nchiediamo la disponibilità per un breve incontro di allineamento…` },
+      { id: "demo-pb", title: "Condivisione link demo PB", to: "Referente aziendale + Cardin", body: `Buongiorno,\ncondividiamo il link alla demo dell'MVP e alla ST…` },
+    ];
+
+    function Button({ as, href, onClick, children, className = "", variant = "solid", target }) {
+      const Comp = as || "button";
+      const base = "inline-flex items-center justify-center rounded-xl px-3 py-2 text-sm font-medium transition-colors";
+      const styles = variant === "ghost" ? "border border-neutral-800 text-neutral-200 hover:bg-neutral-900" : "bg-emerald-600 text-white hover:bg-emerald-500";
+      const rel = target === "_blank" ? "noopener noreferrer" : undefined;
+      return (
+        <Comp href={href} onClick={onClick} target={target} rel={rel} className={[base, styles, className].join(" ")}>{children}</Comp>
+      );
+    }
+
+    function Footer() {
+      return (
+        <footer className="mt-12 border-t border-neutral-800">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6 text-sm flex flex-col sm:flex-row gap-2 items-center justify-between text-neutral-400">
+            <div>© {new Date().getFullYear()} Atlas — PD1 {CONFIG.academicYear}</div>
+            <div className="flex gap-4">
+              <a href="#candidatura" className="hover:text-white">Candidatura</a>
+              <a href="#rtb" className="hover:text-white">RTB</a>
+              <a href="#pb" className="hover:text-white">PB</a>
+              <a href="#presentazione" className="hover:text-white">Presentazione</a>
+            </div>
+          </div>
+        </footer>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
