@@ -1,0 +1,45 @@
+
+:root{
+  --bg:#0a0a0a;
+  --fg:#e5e5e5;
+  --muted:#a3a3a3;
+  --blue:#3b82f6;
+}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:system-ui,Segoe UI,Roboto,Inter,sans-serif;
+}
+.container{max-width:1100px;margin:0 auto;padding:0 16px}
+.header{
+  position:sticky;top:0;z-index:40;
+  backdrop-filter:blur(8px);
+  background:rgba(0,0,0,.7);
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.header-row{display:flex;justify-content:space-between;align-items:center;height:64px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-logo{height:36px;width:36px;object-fit:contain}
+.brand-name{font-weight:600;font-size:18px}
+.shortcut-row{display:flex;gap:8px;overflow-x:auto;white-space:nowrap}
+.chip{
+  border:1px solid rgba(255,255,255,.1);
+  padding:6px 10px;border-radius:999px;font-size:14px;color:var(--fg);
+  transition:background .2s,border-color .2s;
+}
+.chip:hover{background:rgba(255,255,255,.05);border-color:var(--blue)}
+.hero{text-align:center;padding:60px 0}
+.logo{height:90px;width:90px;margin-bottom:12px}
+h1{font-size:36px;margin:0}
+.lead{color:var(--muted);text-align:center;max-width:700px;margin:0 auto 20px}
+.section{padding:40px 0}
+.btn{display:inline-block;padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none}
+.btn-primary{background:var(--blue);color:white}
+.btn-primary:hover{filter:brightness(1.1)}
+.btn-ghost{border:1px solid rgba(255,255,255,.1);color:var(--fg)}
+.btn-ghost:hover{background:rgba(255,255,255,.05)}
+.team-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:16px;text-align:center;transition:border-color .2s}
+.card:hover{border-color:var(--blue)}
+.footer{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding:20px 0;text-align:center;color:var(--muted)}

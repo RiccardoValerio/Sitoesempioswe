@@ -1,283 +1,92 @@
+
 <!doctype html>
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Atlas</title>
-  <meta name="description" content="Sito statico del gruppo Atlas (Candidatura, RTB, PB, Presentazione & Comunicazioni)">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    html { scroll-behavior: smooth; }
-    :root {
-      --bg: #0a0a0a; /* nero moderno */
-      --fg: #e5e5e5; /* testo chiaro */
-      --muted: #a3a3a3; /* testo secondario */
-      --blue: #3b82f6; /* accento blu (tailwind blue-500) */
-    }
-    /* Utility: navbar sempre visibile e scrollabile su mobile */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  </style>
+  <meta name="description" content="Sito statico del gruppo Atlas per il progetto di Ingegneria del Software">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="min-h-screen bg-[color:var(--bg)] text-[color:var(--fg)]">
-  <!-- Header con logo e scorciatoie -->
-  <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-black/60 border-b border-white/10">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-3">
-        <img src="AtlasLogo.png" alt="Logo Atlas" class="h-9 w-9 object-contain drop-shadow" onerror="this.style.display='none'" />
-        <span class="font-semibold tracking-tight text-lg text-white">Atlas</span>
+<body>
+  <header class="header">
+    <div class="container header-row">
+      <a href="#top" class="brand">
+        <img src="img/AtlasLogo.png" alt="Logo Atlas" class="brand-logo">
+        <span class="brand-name">Atlas</span>
       </a>
-      <nav class="flex flex-nowrap gap-2 overflow-x-auto no-scrollbar">
-        <a href="#candidatura" class="rounded-full px-3 py-1.5 text-sm border border-white/10 text-[color:var(--fg)] hover:bg-white/5">Candidatura</a>
-        <a href="#rtb" class="rounded-full px-3 py-1.5 text-sm border border-white/10 text-[color:var(--fg)] hover:bg-white/5">RTB</a>
-        <a href="#pb" class="rounded-full px-3 py-1.5 text-sm border border-white/10 text-[color:var(--fg)] hover:bg-white/5">PB</a>
-        <a href="#presentazione" class="rounded-full px-3 py-1.5 text-sm border border-white/10 text-[color:var(--fg)] hover:bg-white/5">Presentazione</a>
-        <a href="#team" class="rounded-full px-3 py-1.5 text-sm border border-white/10 text-[color:var(--fg)] hover:bg-white/5">Team</a>
-        <a href="#top" class="rounded-full px-3 py-1.5 text-sm border border-white/10 text-[color:var(--fg)] hover:bg-white/5">↑ Torna su</a>
+      <nav class="shortcut-row">
+        <a href="#candidatura" class="chip">Candidatura</a>
+        <a href="#rtb" class="chip">RTB</a>
+        <a href="#pb" class="chip">PB</a>
+        <a href="#presentazione" class="chip">Presentazione</a>
+        <a href="#team" class="chip">Team</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero con logo grande -->
-  <section id="top" class="py-12 text-center">
-    <div class="flex flex-col items-center gap-4">
-      <img src="AtlasLogo.png" alt="Logo Atlas" class="h-28 w-28 object-contain drop-shadow" onerror="this.style.display='none'" />
-      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-white">Gruppo Atlas</h1>
-      <p class="text-[color:var(--muted)] max-w-2xl">Progetto di Ingegneria del Software — Università di Padova — A.A. 2025/2026</p>
-      <div class="mt-4 flex flex-wrap justify-center gap-3">
-        <a class="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium bg-[color:var(--blue)] text-white hover:brightness-110" href="https://github.com/AtlasTeam9" target="_blank" rel="noopener noreferrer">Repository GitHub</a>
-        <a class="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium border border-white/10 text-[color:var(--fg)] hover:bg-white/5" href="#presentazione">Comunicazioni</a>
-      </div>
-    </div>
-  </section>
-
-  <main class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-16">
-
-    <!-- Candidatura -->
-    <section id="candidatura" class="py-10">
-      <h2 class="text-3xl font-bold mb-2 text-center text-white">Candidatura</h2>
-      <p class="text-[color:var(--muted)] mb-6 text-center">Documenti e verbali relativi alla fase di candidatura, suddivisi per interni ed esterni.</p>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Documenti Interni</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Documento candidature interne · v1.0.0 · 2025-10-28</a></li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Documenti Esterni</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Lettera di candidatura · v1.0.0 · 2025-10-28</a></li>
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Documento candidature esterne · v1.0.0 · 2025-10-28</a></li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Verbali Interni</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Verbale interno · 2025-10-27</a></li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Verbali Esterni</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Verbale esterno · 2025-10-29</a></li>
-          </ul>
-        </div>
+  <main class="container">
+    <section id="top" class="hero">
+      <img src="img/AtlasLogo.png" alt="Logo Atlas" class="logo">
+      <h1>Gruppo Atlas</h1>
+      <p>Progetto di Ingegneria del Software — Università di Padova — A.A. 2025/2026</p>
+      <div class="cta-row">
+        <a href="https://github.com/AtlasTeam9" target="_blank" class="btn btn-primary">Repository GitHub</a>
+        <a href="#presentazione" class="btn btn-ghost">Comunicazioni</a>
       </div>
     </section>
 
-    <!-- RTB -->
-    <section id="rtb" class="py-10">
-      <h2 class="text-3xl font-bold mb-2 text-center text-white">RTB — Requirements & Technology Baseline</h2>
-      <p class="text-[color:var(--muted)] mb-6 text-center">Documenti e verbali relativi alla baseline RTB.</p>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Documenti Interni</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Documento interno RTB · v1.0.0 · 2025-12-12</a></li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Documenti Esterni</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Documento esterno RTB · v1.0.0 · 2025-12-12</a></li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Verbali Interni</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Verbale interno RTB · 2025-12-10</a></li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Verbali Esterni</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Verbale esterno RTB · 2025-12-11</a></li>
-          </ul>
-        </div>
-      </div>
+    <section id="candidatura" class="section">
+      <h2>Candidatura</h2>
+      <p class="lead">Documenti e verbali relativi alla fase di candidatura, suddivisi per interni ed esterni.</p>
     </section>
 
-    <!-- PB -->
-    <section id="pb" class="py-10">
-      <h2 class="text-3xl font-bold mb-2 text-center text-white">PB — Product Baseline</h2>
-      <p class="text-[color:var(--muted)] mb-6 text-center">Documenti, verbali e release di PB.</p>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Documenti Interni</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Documento interno PB · v2.0.0 · 2026-03-05</a></li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Documenti Esterni</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Lettera di candidatura PB · v2.0.0 · 2026-03-05</a></li>
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Documento esterno PB · v2.0.0 · 2026-03-05</a></li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Verbali Interni</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Verbale interno PB · 2026-03-08</a></li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Verbali Esterni</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Verbale esterno PB · 2026-03-09</a></li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5 md:col-span-2">
-          <h3 class="text-lg font-semibold mb-3 text-white">Release</h3>
-          <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Release v2.0.0 · 2026-03-10</a>
-        </div>
-      </div>
+    <section id="rtb" class="section">
+      <h2>RTB — Requirements & Technology Baseline</h2>
+      <p class="lead">Documenti e verbali della baseline RTB.</p>
     </section>
 
-    <!-- Presentazione e Comunicazioni -->
-    <section id="presentazione" class="py-10">
-      <h2 class="text-3xl font-bold mb-2 text-center text-white">Presentazione & Comunicazioni</h2>
-      <p class="text-[color:var(--muted)] mb-6 text-center">Slide, stati di avanzamento e diari di bordo.</p>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Slide</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Slide RTB · 2025-12-15</a></li>
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Slide PB · 2026-03-10</a></li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Stati di avanzamento</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Report avanzamento RTB · 2025-12-05</a></li>
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Report avanzamento PB · 2026-03-01</a></li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold mb-3 text-white">Diari di bordo</h3>
-          <ul class="space-y-2 text-[color:var(--fg)]">
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Diario di bordo — Settimana 1 — 2025-10-15</a></li>
-            <li><a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">Diario di bordo — Settimana 2 — 2025-10-22</a></li>
-          </ul>
-        </div>
-      </div>
+    <section id="pb" class="section">
+      <h2>PB — Product Baseline</h2>
+      <p class="lead">Documenti, verbali e release del Product Baseline.</p>
     </section>
 
-    <!-- Team -->
-    <section id="team" class="py-10">
-      <h2 class="text-3xl font-bold mb-2 text-center text-white">Team</h2>
-      <p class="text-[color:var(--muted)] mb-6 text-center">Sette posti pronti: inserisci Nome, Cognome, Matricola e contatti (email/LinkedIn/GitHub).</p>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Member 1 -->
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold text-white">Nome Cognome</h3>
-          <p class="text-[color:var(--muted)]">Matricola: <span class="text-[color:var(--fg)]">XXXXXX</span></p>
-          <div class="mt-2 flex flex-wrap gap-3 text-sm">
-            <a href="mailto:email@example.com" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">email@example.com</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">GitHub</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">LinkedIn</a>
-          </div>
-        </div>
-        <!-- Member 2 -->
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold text-white">Nome Cognome</h3>
-          <p class="text-[color:var(--muted)]">Matricola: <span class="text-[color:var(--fg)]">XXXXXX</span></p>
-          <div class="mt-2 flex flex-wrap gap-3 text-sm">
-            <a href="mailto:email@example.com" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">email@example.com</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">GitHub</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">LinkedIn</a>
-          </div>
-        </div>
-        <!-- Member 3 -->
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold text-white">Nome Cognome</h3>
-          <p class="text-[color:var(--muted)]">Matricola: <span class="text-[color:var(--fg)]">XXXXXX</span></p>
-          <div class="mt-2 flex flex-wrap gap-3 text-sm">
-            <a href="mailto:email@example.com" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">email@example.com</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">GitHub</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">LinkedIn</a>
-          </div>
-        </div>
-        <!-- Member 4 -->
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold text-white">Nome Cognome</h3>
-          <p class="text-[color:var(--muted)]">Matricola: <span class="text-[color:var(--fg)]">XXXXXX</span></p>
-          <div class="mt-2 flex flex-wrap gap-3 text-sm">
-            <a href="mailto:email@example.com" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">email@example.com</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">GitHub</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">LinkedIn</a>
-          </div>
-        </div>
-        <!-- Member 5 -->
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold text-white">Nome Cognome</h3>
-          <p class="text-[color:var(--muted)]">Matricola: <span class="text-[color:var(--fg)]">XXXXXX</span></p>
-          <div class="mt-2 flex flex-wrap gap-3 text-sm">
-            <a href="mailto:email@example.com" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">email@example.com</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">GitHub</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">LinkedIn</a>
-          </div>
-        </div>
-        <!-- Member 6 -->
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold text-white">Nome Cognome</h3>
-          <p class="text-[color:var(--muted)]">Matricola: <span class="text-[color:var(--fg)]">XXXXXX</span></p>
-          <div class="mt-2 flex flex-wrap gap-3 text-sm">
-            <a href="mailto:email@example.com" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">email@example.com</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">GitHub</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">LinkedIn</a>
-          </div>
-        </div>
-        <!-- Member 7 -->
-        <div class="rounded-3xl border border-white/10 hover:border-[color:var(--blue)]/40 transition-colors p-5">
-          <h3 class="text-lg font-semibold text-white">Nome Cognome</h3>
-          <p class="text-[color:var(--muted)]">Matricola: <span class="text-[color:var(--fg)]">XXXXXX</span></p>
-          <div class="mt-2 flex flex-wrap gap-3 text-sm">
-            <a href="mailto:email@example.com" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">email@example.com</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">GitHub</a>
-            <a href="#" class="text-[color:var(--muted)] hover:text-[color:var(--blue)] underline">LinkedIn</a>
-          </div>
-        </div>
-      </div>
+    <section id="presentazione" class="section">
+      <h2>Presentazione & Comunicazioni</h2>
+      <p class="lead">Slide, stati di avanzamento e diari di bordo.</p>
     </section>
 
+    <section id="team" class="section">
+      <h2>Team</h2>
+      <p class="lead">Sette posti pronti: inserisci Nome, Cognome, Matricola e contatti (email/LinkedIn/GitHub).</p>
+      <div class="team-grid">
+        <!-- 7 placeholder cards -->
+        <div class='card'><h3>Nome Cognome</h3><p>Matricola: XXXXXX</p></div>
+<div class='card'><h3>Nome Cognome</h3><p>Matricola: XXXXXX</p></div>
+<div class='card'><h3>Nome Cognome</h3><p>Matricola: XXXXXX</p></div>
+<div class='card'><h3>Nome Cognome</h3><p>Matricola: XXXXXX</p></div>
+<div class='card'><h3>Nome Cognome</h3><p>Matricola: XXXXXX</p></div>
+<div class='card'><h3>Nome Cognome</h3><p>Matricola: XXXXXX</p></div>
+<div class='card'><h3>Nome Cognome</h3><p>Matricola: XXXXXX</p></div>
+      </div>
+    </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="mt-12 border-t border-white/10">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6 text-sm flex flex-col sm:flex-row gap-2 items-center justify-between text-[color:var(--muted)]">
-      <div>© <span id="year"></span> Atlas 2025/2026</div>
-      <div class="flex flex-wrap gap-2">
-        <a href="#candidatura" class="rounded-full px-3 py-1 text-sm border border-white/10 text-[color:var(--fg)] hover:bg-white/5">Candidatura</a>
-        <a href="#rtb" class="rounded-full px-3 py-1 text-sm border border-white/10 text-[color:var(--fg)] hover:bg-white/5">RTB</a>
-        <a href="#pb" class="rounded-full px-3 py-1 text-sm border border-white/10 text-[color:var(--fg)] hover:bg-white/5">PB</a>
-        <a href="#presentazione" class="rounded-full px-3 py-1 text-sm border border-white/10 text-[color:var(--fg)] hover:bg-white/5">Presentazione</a>
-        <a href="#team" class="rounded-full px-3 py-1 text-sm border border-white/10 text-[color:var(--fg)] hover:bg-white/5">Team</a>
-      </div>
+  <footer class="footer">
+    <div class="container footer-row">
+      <div>© <span id="year"></span> Atlas</div>
+      <nav class="shortcut-row">
+        <a href="#candidatura" class="chip">Candidatura</a>
+        <a href="#rtb" class="chip">RTB</a>
+        <a href="#pb" class="chip">PB</a>
+        <a href="#presentazione" class="chip">Presentazione</a>
+        <a href="#team" class="chip">Team</a>
+      </nav>
     </div>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
