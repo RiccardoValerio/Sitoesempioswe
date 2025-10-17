@@ -1,10 +1,25 @@
-# ATLAS · PD1 — GitHub Pages (gold theme)
+# PD1 – GitHub Pages
 
-Palette ricavata dal logo: **oro su blu scuro**.
+Sito statico per il Progetto Didattico PD1 (UniPd), pubblicato con **GitHub Pages**.
 
-## Deploy
-1. Crea una repo pubblica (es. `atlas.github.io` o `atlas-site`) e carica tutto in root.
-2. **Settings → Pages** → Source: `main` · Folder: `/ (root)`.
-3. Apri l’URL pubblicato.
+## Deploy rapido
+1. Crea una repo (pubblica) su GitHub e carica questi file alla radice.
+2. Vai su **Settings → Pages** e imposta:
+   - Source: `main`
+   - Folder: `/ (root)`
+3. Apri l’URL mostrato da GitHub Pages.
 
-Per cambiare i colori: modifica in `assets/style.css` le variabili `--brand`, `--brand-2`, `--bg-1/2/3`.
+## Struttura
+```
+/
+├─ index.html
+├─ 404.html
+├─ assets/
+│  └─ style.css
+└─ docs/
+   ├─ AnalisiDeiRequisiti_v1.0.0.pdf
+   ├─ NormeDiProgetto_v1.0.0.pdf
+   └─ … (altri PDF)
+```
+
+Sostituisci i link dentro `index.html` con i tuoi documenti reali.

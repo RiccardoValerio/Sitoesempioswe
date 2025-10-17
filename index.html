@@ -3,170 +3,145 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ATLAS · Progetto PD1 UniPd</title>
-  <meta name="description" content="Sito del gruppo ATLAS — Progetto Didattico di Ingegneria del Software (PD1) UniPd.">
-  <link rel="icon" href="assets/images/logo.png">
+  <title>PD1 – Progetto Didattico | Product Baseline</title>
+  <meta name="description" content="Sito di documentazione per il Progetto Didattico PD1 – Ingegneria del Software (UniPd).">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <!-- Navbar fissa con ancore alle sezioni -->
-  <header class="navbar">
-    <div class="container nav-inner">
-      <a class="brand" href="#home" aria-label="Torna all'inizio">
-        <img src="assets/images/logo.png" alt="ATLAS" class="brand-logo" />
-        <span>ATLAS</span>
-      </a>
-      <nav class="links" aria-label="Navigazione sezioni">
-        <a href="#candidatura">Candidatura</a>
-        <a href="#rtb">RTB</a>
-        <a href="#pb">PB</a>
-        <a href="#ca">CA</a>
-        <a href="#verbali">Verbali</a>
-        <a href="#diari">Diari</a>
-        <a href="#presentazioni">Presentazioni</a>
-        <a href="#contatti">Contatti</a>
-      </nav>
+<header class="site-header">
+  <div class="container">
+    <h1>PD1 · Progetto Didattico</h1>
+    <nav class="nav">
+      <a href="#overview">Panoramica</a>
+      <a href="#documenti">Documenti</a>
+      <a href="#mvp">MVP</a>
+      <a href="#verbali">Verbali</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#team">Team & Ruoli</a>
+      <a href="#contatti">Contatti</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section id="overview" class="card">
+    <h2>Panoramica</h2>
+    <p>Questo sito ospita la documentazione ufficiale del progetto <strong>PD1 – Ingegneria del Software</strong> (UniPd). È pubblicato tramite <em>GitHub Pages</em> e contiene gli artefatti previsti per <em>RTB</em>, <em>PB</em> e, opzionalmente, <em>CA</em>.</p>
+    <ul class="badges">
+      <li><span class="badge">WoW: JIT + PDCA</span></li>
+      <li><span class="badge">Repo: public</span></li>
+      <li><span class="badge">Branch: main</span></li>
+      <li><span class="badge">Last update: <span id="last-update">—</span></span></li>
+    </ul>
+  </section>
+
+  <section id="documenti" class="card">
+    <h2>Documenti</h2>
+    <div class="grid two">
+      <div>
+        <h3>RTB · v1.0.0</h3>
+        <ul>
+          <li><a href="docs/AnalisiDeiRequisiti_v1.0.0.pdf">Analisi dei Requisiti</a></li>
+          <li><a href="docs/NormeDiProgetto_v1.0.0.pdf">Norme di Progetto</a></li>
+          <li><a href="docs/PianoDiProgetto_v1.0.0.pdf">Piano di Progetto</a></li>
+          <li><a href="docs/PianoDiQualifica_v1.0.0.pdf">Piano di Qualifica</a></li>
+          <li><a href="docs/Glossario_v1.0.0.pdf">Glossario</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>PB · v2.0.0</h3>
+        <ul>
+          <li><a href="docs/SpecificaTecnica_v2.0.0.pdf">Specifica Tecnica</a></li>
+          <li><a href="docs/ManualeUtente_v2.0.0.pdf">Manuale Utente</a></li>
+          <li><a href="docs/ManualeSviluppatore_v2.0.0.pdf">Manuale Sviluppatore</a></li>
+          <li><a href="docs/LetteraPresentazionePB_v2.0.0.pdf">Lettera di Presentazione PB</a></li>
+          <li><a href="docs/VerbaliEsterni_PB_v2.0.0.pdf">Verbali Esterni (selezione)</a></li>
+        </ul>
+      </div>
     </div>
-  </header>
+    <details class="mt">
+      <summary>CA · v3.0.0 (opzionale)</summary>
+      <ul>
+        <li><a href="docs/DocumentazioneFinale_v3.0.0.pdf">Documentazione Finale</a></li>
+      </ul>
+    </details>
+    <p class="hint">Sostituisci i link con i PDF effettivi dei tuoi documenti dentro la cartella <code>/docs</code>.</p>
+  </section>
 
-  <main id="home" class="container">
-    <section class="hero">
-      <div class="hero-left">
-        <img src="assets/images/logo.png" alt="Logo ATLAS" class="logo-hero" />
+  <section id="mvp" class="card">
+    <h2>MVP e Demo</h2>
+    <p>Qui inserisci link all’MVP, demo online, eseguibili o istruzioni di installazione/esecuzione.</p>
+    <ul>
+      <li><a href="https://example.com/demo" target="_blank" rel="noopener">Demo online</a></li>
+      <li><a href="docs/IstruzioniBuild.pdf">Istruzioni di build</a></li>
+      <li><a href="docs/ReleaseNotes.md">Release Notes</a></li>
+    </ul>
+  </section>
+
+  <section id="verbali" class="card">
+    <h2>Verbali</h2>
+    <div class="grid two">
+      <div>
+        <h3>Interni</h3>
+        <ul>
+          <li><a href="docs/VerbaleInterno_YYYYMMDD.pdf">Verbale Interno (YYYY‑MM‑DD)</a></li>
+        </ul>
       </div>
-      <div class="hero-right">
-        <h1>ATLAS</h1>
-        <p class="subtitle">Progetto Didattico PD1 · Ingegneria del Software · UniPd</p>
-        <p class="muted">Struttura iniziale — i contenuti verranno inseriti progressivamente.</p>
-        <div class="cta-row">
-          <a class="btn primary" href="#rtb">Vai a RTB</a>
-          <a class="btn ghost" href="#pb">Vai a PB</a>
-        </div>
+      <div>
+        <h3>Esterni</h3>
+        <ul>
+          <li><a href="docs/VerbaleEsterno_YYYYMMDD.pdf">Verbale Esterno (YYYY‑MM‑DD)</a></li>
+        </ul>
       </div>
-    </section>
-
-    <section id="candidatura" class="card">
-      <h2>Candidatura</h2>
-      <p class="placeholder">Segnaposto — inserire documenti/lettere di candidatura quando disponibili.</p>
-    </section>
-
-    <section id="rtb" class="card">
-      <h2>RTB · Requirements & Technology Baseline</h2>
-      <ul class="grid two clean">
-        <li><span class="placeholder">Analisi dei Requisiti (v1.0.0)</span></li>
-        <li><span class="placeholder">Norme di Progetto (v1.0.0)</span></li>
-        <li><span class="placeholder">Piano di Progetto (v1.0.0)</span></li>
-        <li><span class="placeholder">Piano di Qualifica (v1.0.0)</span></li>
-        <li><span class="placeholder">Glossario (v1.0.0)</span></li>
-      </ul>
-      <p class="hint">Quando pronti, sostituite i segnaposto con link a PDF reali in <code>/docs</code>.</p>
-    </section>
-
-    <section id="pb" class="card">
-      <h2>PB · Product Baseline</h2>
-      <ul class="grid two clean">
-        <li><span class="placeholder">Specifica Tecnica (v2.0.0)</span></li>
-        <li><span class="placeholder">Manuale Utente (v2.0.0)</span></li>
-        <li><span class="placeholder">Manuale Sviluppatore (v2.0.0)</span></li>
-        <li><span class="placeholder">Lettera Presentazione PB (v2.0.0)</span></li>
-      </ul>
-    </section>
-
-    <section id="ca" class="card">
-      <h2>CA · Customer Acceptance (opzionale)</h2>
-      <p class="placeholder">Segnaposto — eventuali materiali finali (v3.0.0).</p>
-    </section>
-
-    <section id="verbali" class="card">
-      <h2>Verbali</h2>
-      <div class="grid two">
-        <div>
-          <h3>Interni</h3>
-          <ul class="clean">
-            <li><span class="placeholder">Verbale Interno — YYYY-MM-DD</span></li>
-          </ul>
-        </div>
-        <div>
-          <h3>Esterni</h3>
-          <ul class="clean">
-            <li><span class="placeholder">Verbale Esterno — YYYY-MM-DD</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="diari" class="card">
-      <h2>Diari di Bordo</h2>
-      <ul class="clean">
-        <li><span class="placeholder">Diario — Settimana 01</span></li>
-      </ul>
-    </section>
-
-    <section id="presentazioni" class="card">
-      <h2>Presentazioni</h2>
-      <ul class="clean">
-        <li><span class="placeholder">Slide RTB</span></li>
-        <li><span class="placeholder">Slide PB</span></li>
-      </ul>
-    </section>
-
-    <section id="contatti" class="card">
-      <h2>Contatti</h2>
-      <ul class="contact-list">
-        <li><strong>Repository:</strong> <span class="placeholder">da definire</span></li>
-        <li><strong>Email di gruppo:</strong> <span class="placeholder">da definire</span></li>
-      </ul>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> ATLAS · UniPd · GitHub Pages</p>
     </div>
-  </footer>
+    <p class="hint">Mantieni naming consistente e versionamento: <code>vX.Y.Z</code>, data in ISO, e changelog sintetico.</p>
+  </section>
 
-  <button id="backToTop" aria-label="Torna su">↑</button>
+  <section id="timeline" class="card">
+    <h2>Timeline</h2>
+    <ul class="timeline">
+      <li><span>13/10/2025</span> Formazione gruppi</li>
+      <li><span>31/10/2025</span> Candidature</li>
+      <li><span>03/11/2025</span> Aggiudicazione</li>
+      <li><span>RTB</span> Requirements & Technology Baseline</li>
+      <li><span>PB</span> Product Baseline</li>
+      <li><span>CA</span> Customer Acceptance (opzionale)</li>
+    </ul>
+  </section>
 
-  <script>
-    // Anno nel footer
-    document.getElementById('year').textContent = new Date().getFullYear();
+  <section id="team" class="card">
+    <h2>Team & Ruoli</h2>
+    <table class="table">
+      <thead>
+        <tr><th>Nome</th><th>Ruoli</th><th>Email</th><th>Ore (80–95)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Nome Cognome</td><td>Responsabile, Verificatore</td><td><a href="mailto:nome@unipd.it">nome@unipd.it</a></td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p class="hint">Ricorda: i costi orari per ruolo (Resp 30€, Anal/Prog 25/15€, …) vanno nel PdP.</p>
+  </section>
 
-    // Smooth scroll + active link
-    const links = document.querySelectorAll('.links a');
-    links.forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        const id = a.getAttribute('href');
-        const el = document.querySelector(id);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          history.pushState(null, '', id);
-        }
-      });
-    });
+  <section id="contatti" class="card">
+    <h2>Contatti</h2>
+    <ul>
+      <li><strong>Repository:</strong> <a href="https://github.com/tuo-username/tuo-repo" target="_blank" rel="noopener">github.com/tuo-username/tuo-repo</a></li>
+      <li><strong>Proponente:</strong> Nome Azienda – Referente <a href="mailto:referente@azienda.com">referente@azienda.com</a></li>
+      <li><strong>Committente (docente):</strong> Tullio Vardanega – <a href="mailto:tullio.vardanega@unipd.it">tullio.vardanega@unipd.it</a></li>
+    </ul>
+  </section>
+</main>
 
-    // Evidenzia sezione attiva
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        const id = '#' + entry.target.id;
-        const link = document.querySelector('.links a[href="' + id + '"]');
-        if (link) {
-          if (entry.isIntersecting) {
-            document.querySelectorAll('.links a').forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-          }
-        }
-      });
-    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0.1 });
-    document.querySelectorAll('main section[id]').forEach(sec => obs.observe(sec));
+<footer class="site-footer">
+  <div class="container">
+    <p>© <span id="year"></span> Gruppo PD1 · UniPd · Pubblicato con GitHub Pages</p>
+  </div>
+</footer>
 
-    // Back to top
-    const btn = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) { btn.classList.add('show'); }
-      else { btn.classList.remove('show'); }
-    });
-    btn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
-  </script>
+<script>
+  // Aggiorna anno e last update lato client
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('last-update').textContent = new Date(document.lastModified).toLocaleString('it-IT');
+</script>
 </body>
 </html>
