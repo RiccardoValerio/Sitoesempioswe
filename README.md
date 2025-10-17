@@ -1,13 +1,18 @@
-# PD1 – GitHub Pages
+# ATLAS · PD1 — GitHub Pages (scheletro)
 
-Sito statico per il Progetto Didattico PD1 (UniPd), pubblicato con **GitHub Pages**.
+Repository base per pubblicare il sito del gruppo **ATLAS** su **GitHub Pages**.
 
-## Deploy rapido
-1. Crea una repo (pubblica) su GitHub e carica questi file alla radice.
-2. Vai su **Settings → Pages** e imposta:
-   - Source: `main`
+## Deploy
+1. Crea una repo **pubblica** (es. `atlas.github.io` oppure `atlas-site`).
+2. Carica i file nella **root** della repo.
+3. **Settings → Pages → Build and deployment**:  
+   - Source: Branch `main`  
    - Folder: `/ (root)`
-3. Apri l’URL mostrato da GitHub Pages.
+4. Apri l’URL pubblicato da GitHub.
+
+## Dove mettere i contenuti
+- Metti i PDF in `docs/` e sostituisci i segnaposto in `index.html`.
+- Il logo si trova in `assets/images/logo.svg`: sostituiscilo quando avete il logo ufficiale.
 
 ## Struttura
 ```
@@ -15,11 +20,8 @@ Sito statico per il Progetto Didattico PD1 (UniPd), pubblicato con **GitHub Page
 ├─ index.html
 ├─ 404.html
 ├─ assets/
-│  └─ style.css
+│  ├─ style.css
+│  └─ images/
+│     └─ logo.svg
 └─ docs/
-   ├─ AnalisiDeiRequisiti_v1.0.0.pdf
-   ├─ NormeDiProgetto_v1.0.0.pdf
-   └─ … (altri PDF)
 ```
-
-Sostituisci i link dentro `index.html` con i tuoi documenti reali.
