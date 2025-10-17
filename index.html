@@ -5,21 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ATLAS · Progetto PD1 UniPd</title>
   <meta name="description" content="Sito del gruppo ATLAS — Progetto Didattico di Ingegneria del Software (PD1) UniPd.">
-  <link rel="icon" href="assets/images/logo.svg">
+  <link rel="icon" href="assets/images/logo.png">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+  <!-- Navbar fissa con ancore alle sezioni -->
   <header class="navbar">
     <div class="container nav-inner">
-      <a class="brand" href="#home">
-        <img src="assets/images/logo.svg" alt="ATLAS logo" class="logo" />
+      <a class="brand" href="#home" aria-label="Torna all'inizio">
+        <img src="assets/images/logo.png" alt="ATLAS" class="brand-logo" />
         <span>ATLAS</span>
       </a>
-      <nav class="links">
-        <a href="#overview">Panoramica</a>
-        <a href="#documenti">Documenti</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#team">Team</a>
+      <nav class="links" aria-label="Navigazione sezioni">
+        <a href="#candidatura">Candidatura</a>
+        <a href="#rtb">RTB</a>
+        <a href="#pb">PB</a>
+        <a href="#ca">CA</a>
+        <a href="#verbali">Verbali</a>
+        <a href="#diari">Diari</a>
+        <a href="#presentazioni">Presentazioni</a>
         <a href="#contatti">Contatti</a>
       </nav>
     </div>
@@ -27,79 +31,90 @@
 
   <main id="home" class="container">
     <section class="hero">
-      <h1>ATLAS</h1>
-      <p class="subtitle">Progetto Didattico PD1 · Ingegneria del Software · UniPd</p>
-      <p class="muted">Struttura iniziale — contenuti in arrivo</p>
-      <div class="cta-row">
-        <a class="btn primary" href="#documenti">Vai ai documenti</a>
-        <a class="btn ghost" href="#roadmap">Roadmap</a>
+      <div class="hero-left">
+        <img src="assets/images/logo.png" alt="Logo ATLAS" class="logo-hero" />
+      </div>
+      <div class="hero-right">
+        <h1>ATLAS</h1>
+        <p class="subtitle">Progetto Didattico PD1 · Ingegneria del Software · UniPd</p>
+        <p class="muted">Struttura iniziale — i contenuti verranno inseriti progressivamente.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#rtb">Vai a RTB</a>
+          <a class="btn ghost" href="#pb">Vai a PB</a>
+        </div>
       </div>
     </section>
 
-    <section id="overview" class="card">
-      <h2>Panoramica</h2>
-      <p>Questo sito, pubblicato con <strong>GitHub Pages</strong>, ospiterà la documentazione del gruppo <strong>ATLAS</strong> per il Progetto Didattico PD1. Per ora è solo una struttura vuota con stile base.</p>
-      <ul class="badges">
-        <li><span class="badge">Repo: public</span></li>
-        <li><span class="badge">Branch: main</span></li>
-        <li><span class="badge">Status: bootstrap</span></li>
+    <section id="candidatura" class="card">
+      <h2>Candidatura</h2>
+      <p class="placeholder">Segnaposto — inserire documenti/lettere di candidatura quando disponibili.</p>
+    </section>
+
+    <section id="rtb" class="card">
+      <h2>RTB · Requirements & Technology Baseline</h2>
+      <ul class="grid two clean">
+        <li><span class="placeholder">Analisi dei Requisiti (v1.0.0)</span></li>
+        <li><span class="placeholder">Norme di Progetto (v1.0.0)</span></li>
+        <li><span class="placeholder">Piano di Progetto (v1.0.0)</span></li>
+        <li><span class="placeholder">Piano di Qualifica (v1.0.0)</span></li>
+        <li><span class="placeholder">Glossario (v1.0.0)</span></li>
+      </ul>
+      <p class="hint">Quando pronti, sostituite i segnaposto con link a PDF reali in <code>/docs</code>.</p>
+    </section>
+
+    <section id="pb" class="card">
+      <h2>PB · Product Baseline</h2>
+      <ul class="grid two clean">
+        <li><span class="placeholder">Specifica Tecnica (v2.0.0)</span></li>
+        <li><span class="placeholder">Manuale Utente (v2.0.0)</span></li>
+        <li><span class="placeholder">Manuale Sviluppatore (v2.0.0)</span></li>
+        <li><span class="placeholder">Lettera Presentazione PB (v2.0.0)</span></li>
       </ul>
     </section>
 
-    <section id="documenti" class="card">
-      <h2>Documenti</h2>
+    <section id="ca" class="card">
+      <h2>CA · Customer Acceptance (opzionale)</h2>
+      <p class="placeholder">Segnaposto — eventuali materiali finali (v3.0.0).</p>
+    </section>
+
+    <section id="verbali" class="card">
+      <h2>Verbali</h2>
       <div class="grid two">
         <div>
-          <h3>RTB (v1.0.0)</h3>
+          <h3>Interni</h3>
           <ul class="clean">
-            <li><span class="placeholder">Analisi dei Requisiti</span></li>
-            <li><span class="placeholder">Norme di Progetto</span></li>
-            <li><span class="placeholder">Piano di Progetto</span></li>
-            <li><span class="placeholder">Piano di Qualifica</span></li>
-            <li><span class="placeholder">Glossario</span></li>
+            <li><span class="placeholder">Verbale Interno — YYYY-MM-DD</span></li>
           </ul>
         </div>
         <div>
-          <h3>PB (v2.0.0)</h3>
+          <h3>Esterni</h3>
           <ul class="clean">
-            <li><span class="placeholder">Specifica Tecnica</span></li>
-            <li><span class="placeholder">Manuale Utente</span></li>
-            <li><span class="placeholder">Manuale Sviluppatore</span></li>
-            <li><span class="placeholder">Lettera di Presentazione PB</span></li>
+            <li><span class="placeholder">Verbale Esterno — YYYY-MM-DD</span></li>
           </ul>
         </div>
       </div>
-      <p class="hint">Quando pronti, sostituite gli elementi segnaposto con link a PDF reali in <code>/docs</code>.</p>
     </section>
 
-    <section id="roadmap" class="card">
-      <h2>Roadmap</h2>
-      <ul class="timeline">
-        <li><span>Kickoff</span> Creazione repo e regole base (NdP).</li>
-        <li><span>RTB</span> Requisiti e baseline tecnologica.</li>
-        <li><span>PB</span> MVP funzionante + documentazione.</li>
-        <li><span>CA</span> (opzionale) Consegna finale.</li>
+    <section id="diari" class="card">
+      <h2>Diari di Bordo</h2>
+      <ul class="clean">
+        <li><span class="placeholder">Diario — Settimana 01</span></li>
       </ul>
     </section>
 
-    <section id="team" class="card">
-      <h2>Team</h2>
-      <table class="table">
-        <thead>
-          <tr><th>Nome</th><th>Ruoli</th><th>Email</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
-      <p class="hint">Compila appena definiti i ruoli: Responsabile, Analista, Progettista, Programmatore, Verificatore, Amministratore.</p>
+    <section id="presentazioni" class="card">
+      <h2>Presentazioni</h2>
+      <ul class="clean">
+        <li><span class="placeholder">Slide RTB</span></li>
+        <li><span class="placeholder">Slide PB</span></li>
+      </ul>
     </section>
 
     <section id="contatti" class="card">
       <h2>Contatti</h2>
       <ul class="contact-list">
-        <li><strong>Repository:</strong> <span class="placeholder">in arrivo</span></li>
-        <li><strong>Email di gruppo:</strong> <span class="placeholder">in arrivo</span></li>
+        <li><strong>Repository:</strong> <span class="placeholder">da definire</span></li>
+        <li><strong>Email di gruppo:</strong> <span class="placeholder">da definire</span></li>
       </ul>
     </section>
   </main>
@@ -113,7 +128,39 @@
   <button id="backToTop" aria-label="Torna su">↑</button>
 
   <script>
+    // Anno nel footer
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll + active link
+    const links = document.querySelectorAll('.links a');
+    links.forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.pushState(null, '', id);
+        }
+      });
+    });
+
+    // Evidenzia sezione attiva
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const id = '#' + entry.target.id;
+        const link = document.querySelector('.links a[href="' + id + '"]');
+        if (link) {
+          if (entry.isIntersecting) {
+            document.querySelectorAll('.links a').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+          }
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0.1 });
+    document.querySelectorAll('main section[id]').forEach(sec => obs.observe(sec));
+
+    // Back to top
     const btn = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) { btn.classList.add('show'); }
