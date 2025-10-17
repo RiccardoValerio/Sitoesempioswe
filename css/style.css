@@ -6,9 +6,16 @@
   --space-md: 1rem;
   --space-lg: 1.75rem;
   --radius: 0.5rem;
-  --container-max: 68rem; /* ~1088px at 16px root */
-  --accent: #2b6cb0;
-  --muted: #6b7280;
+  --container-max: 68rem;
+  --accent: #60a5fa; /* Lightened accent color */
+  --muted: #9ca3af; /* Lightened muted color */
+  
+  /* New dark theme colors */
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --text-primary: #f3f4f6;
+  --text-secondary: #e5e7eb;
+  --border-color: #374151;
 }
 
 /* Reset */
@@ -16,7 +23,13 @@
 *::before,
 *::after { box-sizing: border-box; }
 html { font-size: 100%; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.45; color:#111827; background:#fff; }
+body { 
+  margin: 0; 
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; 
+  line-height: 1.45; 
+  color: var(--text-primary); 
+  background: var(--bg-primary); 
+}
 
 /* Layout container */
 .container {
@@ -29,8 +42,8 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hel
 
 /* Header */
 .header {
-  border-bottom: 1px solid #e6e9ef;
-  background: #fff;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary);
   position: sticky;
   top: 0;
   z-index: 50;
@@ -44,7 +57,13 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hel
 }
 
 /* Brand */
-.brand { display:flex; align-items:center; gap: clamp(0.5rem,2vw,1rem); text-decoration:none; color:inherit; }
+.brand { 
+  display:flex; 
+  align-items:center; 
+  gap: clamp(0.5rem,2vw,1rem); 
+  text-decoration:none; 
+  color: var(--text-primary); 
+}
 .brand-logo { width: clamp(2.25rem, 7vw, 4.5rem); height:auto; display:block; }
 
 /* Navigation chips */
@@ -54,8 +73,9 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hel
   padding: clamp(0.25rem, 0.6vw, 0.5rem) clamp(0.5rem,1.2vw,0.75rem);
   font-size: clamp(0.78rem, 1.2vw, 0.95rem);
   border-radius: clamp(0.25rem, 1vw, 0.5rem);
-  background: #f3f4f6;
-  color: #111827;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
   text-decoration:none;
 }
 
@@ -85,9 +105,20 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hel
 }
 
 /* Sections */
-.section { padding-block: clamp(1.25rem, 5vw, 2.5rem); border-bottom: 1px solid #f1f3f5; }
-.section h2 { margin:0 0 clamp(0.5rem,1.6vw,0.8rem) 0; font-size: clamp(1.125rem, 3vw, 1.6rem); }
-.lead { margin:0; color:var(--muted); font-size: clamp(0.95rem, 1.6vw, 1.05rem); }
+.section { 
+  padding-block: clamp(1.25rem, 5vw, 2.5rem); 
+  border-bottom: 1px solid var(--border-color); 
+}
+.section h2 { 
+  margin:0 0 clamp(0.5rem,1.6vw,0.8rem) 0; 
+  font-size: clamp(1.125rem, 3vw, 1.6rem); 
+  color: var(--text-primary);
+}
+.lead { 
+  margin:0; 
+  color: var(--muted); 
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem); 
+}
 
 /* Team grid */
 .team-grid {
@@ -100,19 +131,36 @@ body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hel
 .card {
   padding: clamp(0.75rem, 2.4vw, 1.25rem);
   border-radius: calc(var(--radius) - 0.15rem);
-  background: #fff;
-  box-shadow: 0 0.4rem 1rem rgba(17,24,39,0.04);
+  background: var(--bg-secondary);
+  box-shadow: 0 0.4rem 1rem rgba(0,0,0,0.2);
+  border: 1px solid var(--border-color);
 }
-.card h3 { margin:0 0 0.35rem 0; font-size: clamp(1rem, 1.8vw, 1.125rem); }
-.card p { margin:0; color:var(--muted); font-size: clamp(0.875rem, 1.6vw, 0.95rem); }
+.card h3 { 
+  margin:0 0 0.35rem 0; 
+  font-size: clamp(1rem, 1.8vw, 1.125rem); 
+  color: var(--text-primary); 
+}
+.card p { 
+  margin:0; 
+  color: var(--muted); 
+  font-size: clamp(0.875rem, 1.6vw, 0.95rem); 
+}
 
 /* Footer */
 .footer {
-  border-top: 1px solid #e6e9ef;
+  border-top: 1px solid var(--border-color);
   padding-block: clamp(0.75rem, 2.5vw, 1.25rem);
-  background: #fff;
+  background: var(--bg-secondary);
 }
-.footer-row { display:flex; gap: clamp(0.5rem, 2vw, 1rem); align-items:center; justify-content:space-between; flex-wrap:wrap; font-size: clamp(0.85rem,1.5vw,0.95rem); color:var(--muted); }
+.footer-row { 
+  display:flex; 
+  gap: clamp(0.5rem, 2vw, 1rem); 
+  align-items:center; 
+  justify-content:space-between; 
+  flex-wrap:wrap; 
+  font-size: clamp(0.85rem,1.5vw,0.95rem); 
+  color: var(--muted); 
+}
 
 /* Utility */
 .text-center { text-align:center; }
