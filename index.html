@@ -4,36 +4,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gruppo Atlas — SWE 25/26</title>
-  <meta name="description" content="Sito del gruppo Atlas per il progetto di Ingegneria del Software 2025/2026">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Skip link per accessibilità -->
-  <a href="#main" class="skip-link visually-hidden">Salta al contenuto</a>
-
   <!-- HEADER -->
-  <header class="header" role="banner">
+  <header class="header">
     <div class="container header-row">
-      <a href="#top" class="brand" aria-label="Home Atlas">
-        <img src="img/AtlasLogo.png" alt="Logo Atlas" class="brand-logo" loading="lazy">
+      <a href="#top" class="brand">
+        <img src="img/AtlasLogo.png" alt="Logo Atlas" class="brand-logo">
         <span>Atlas</span>
       </a>
-      <nav class="nav" aria-label="Navigazione principale">
+      <nav class="nav">
         <a href="#candidatura">Candidatura</a>
-        <a href="#rtb">RTB</a>
-        <a href="#pb">PB</a>
         <a href="#presentazione">Presentazione</a>
         <a href="#team">Team</a>
       </nav>
     </div>
   </header>
 
-  <main id="main" class="container">
+  <main id="top" class="container">
 
     <!-- HERO -->
-    <section id="top" class="hero">
-      <img src="img/AtlasLogo.png" alt="Logo Atlas" class="hero-logo" loading="lazy">
+    <section class="hero">
+      <img src="img/AtlasLogo.png" alt="Logo Atlas" class="hero-logo">
       <h1>Gruppo Atlas</h1>
       <p class="subtitle">Sito del progetto di <strong>Ingegneria del Software 2025/2026</strong></p>
       <a class="btn" href="https://github.com/AtlasTeam9" target="_blank" rel="noopener">Repository GitHub</a>
@@ -43,179 +37,50 @@
     <section id="candidatura" class="section">
       <h2>Candidatura</h2>
 
-      <!-- Documenti -->
-      <details class="accordion" open>
-        <summary><span class="acc-title">Documenti</span></summary>
+      <h3>Documenti — Interni</h3>
+      <ul class="list">
+        <li><a href="#">Valutazione_Capitolati.pdf</a></li>
+      </ul>
 
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="doc" href="#">Valutazione_Capitolati.pdf</a></li>
-            <li><a class="file-link" data-type="doc" href="#">Preventivo_Iniziale.pdf</a></li>
-          </ul>
-        </details>
+      <h3>Documenti — Esterni</h3>
+      <ul class="list">
+        <li><a href="#">Lettera_Candidatura.pdf</a></li>
+      </ul>
 
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="doc" href="#">Lettera_Candidatura.pdf</a></li>
-          </ul>
-        </details>
-      </details>
+      <h3>Verbali — Interni</h3>
+      <ul class="list">
+        <li><a href="#">Verbale_Interno.pdf</a></li>
+      </ul>
 
-      <!-- Verbali -->
-      <details class="accordion">
-        <summary><span class="acc-title">Verbali</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="verbale" href="#">Verbale_Interno_2025-10-18.pdf</a></li>
-          </ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="verbale" href="#">Verbale_Esterno_2025-10-22.pdf</a></li>
-          </ul>
-        </details>
-      </details>
-    </section>
-
-    <!-- RTB -->
-    <section id="rtb" class="section">
-      <h2>RTB — Requirements &amp; Technology Baseline</h2>
-
-      <!-- Documenti -->
-      <details class="accordion" open>
-        <summary><span class="acc-title">Documenti</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="doc" href="#">Norme_di_Progetto.pdf</a></li>
-            <li><a class="file-link" data-type="doc" href="#">Piano_di_Progetto.pdf</a></li>
-            <li><a class="file-link" data-type="doc" href="#">Piano_di_Qualifica.pdf</a></li>
-          </ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="doc" href="#">Analisi_dei_Requisiti.pdf</a></li>
-            <li><a class="file-link" data-type="doc" href="#">Glossario.pdf</a></li>
-          </ul>
-        </details>
-      </details>
-
-      <!-- Verbali -->
-      <details class="accordion">
-        <summary><span class="acc-title">Verbali</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="verbale" href="#">Verbale_Interno_2025-11-10.pdf</a></li>
-          </ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="verbale" href="#">Verbale_Esterno_2025-11-14.pdf</a></li>
-          </ul>
-        </details>
-      </details>
-    </section>
-
-    <!-- PB -->
-    <section id="pb" class="section">
-      <h2>PB — Product Baseline</h2>
-
-      <!-- Documenti -->
-      <details class="accordion" open>
-        <summary><span class="acc-title">Documenti</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="manuale" href="#">Manuale_Sviluppatore.pdf</a></li>
-          </ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="manuale" href="#">Specifica_Tecnica.pdf</a></li>
-            <li><a class="file-link" data-type="manuale" href="#">Manuale_Utente.pdf</a></li>
-            <li><a class="file-link" data-type="release" href="#">Release_MVP_v0.1.0</a></li>
-          </ul>
-        </details>
-      </details>
-
-      <!-- Verbali -->
-      <details class="accordion">
-        <summary><span class="acc-title">Verbali</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="verbale" href="#">Verbale_Interno_2026-01-15.pdf</a></li>
-          </ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="verbale" href="#">Verbale_Esterno_2026-01-22.pdf</a></li>
-          </ul>
-        </details>
-      </details>
+      <h3>Verbali — Esterni</h3>
+      <ul class="list">
+        <li><a href="#">Verbale_Esterno.pdf</a></li>
+      </ul>
     </section>
 
     <!-- PRESENTAZIONE -->
     <section id="presentazione" class="section">
-      <h2>Presentazione &amp; Comunicazioni</h2>
+      <h2>Presentazione & Comunicazioni</h2>
 
-      <!-- Documenti -->
-      <details class="accordion" open>
-        <summary><span class="acc-title">Documenti</span></summary>
+      <h3>Documenti — Interni</h3>
+      <ul class="list">
+        <li><a href="#">Diario_di_Bordo.pdf</a></li>
+      </ul>
 
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="doc" href="#">Diario_di_Bordo.pdf</a></li>
-          </ul>
-        </details>
+      <h3>Documenti — Esterni</h3>
+      <ul class="list">
+        <li><a href="#">Slides.pdf</a></li>
+      </ul>
 
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="doc" href="#">RTB_Slides.pdf</a></li>
-            <li><a class="file-link" data-type="doc" href="#">PB_Slides.pdf</a></li>
-          </ul>
-        </details>
-      </details>
+      <h3>Verbali — Interni</h3>
+      <ul class="list">
+        <li><a href="#">Verbale_Interno.pdf</a></li>
+      </ul>
 
-      <!-- Verbali -->
-      <details class="accordion">
-        <summary><span class="acc-title">Verbali</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="verbale" href="#">Verbale_Interno_2025-12-05.pdf</a></li>
-          </ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list">
-            <li><a class="file-link" data-type="verbale" href="#">Verbale_Esterno_2025-12-12.pdf</a></li>
-          </ul>
-        </details>
-      </details>
+      <h3>Verbali — Esterni</h3>
+      <ul class="list">
+        <li><a href="#">Verbale_Esterno.pdf</a></li>
+      </ul>
     </section>
 
     <!-- TEAM -->
@@ -232,9 +97,7 @@
       </ul>
 
       <h3 class="centered">Contatti</h3>
-      <p class="centered">
-        <a class="pill" href="mailto:team9.atlas@gmail.com">team9.atlas@gmail.com</a>
-      </p>
+      <p class="centered"><a class="pill" href="mailto:team9.atlas@gmail.com">team9.atlas@gmail.com</a></p>
     </section>
 
   </main>
