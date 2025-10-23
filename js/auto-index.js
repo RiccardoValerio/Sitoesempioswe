@@ -3,11 +3,10 @@
  * - Popola le <ul class="auto-list"> con i file nelle cartelle del repo.
  * - Se una cartella è vuota/inesistente: rimuove la UL e "pota" i contenitori genitori
  *   (<details> Documenti/Verbali e .uncat) se rimasti senza contenuti.
- * - NON rimuove mai le <section> principali: il titolo resta sempre.
- * Performance:
- * - richieste in parallelo, cache locale 5 minuti per path.
+ * - NON rimuove mai le <section> principali.
+ * - Apri SEMPRE nel viewer GitHub (html_url) in nuova scheda (no download).
+ * - Richieste in parallelo, cache locale 5 minuti per path.
  */
-
 (async () => {
   const lists = Array.from(document.querySelectorAll('.auto-list[data-repo-owner][data-repo-name][data-path]'));
   if (!lists.length) return;
@@ -44,9 +43,7 @@
       const cached = localStorage.getItem(cacheKey);
       if (cached) {
         const parsed = JSON.parse(cached);
-        if (parsed.t && (now - parsed.t) < CACHE_TTL_MS) {
-          entries = parsed.entries;
-        }
+        if (parsed.t && (now - parsed.t) < CACHE_TTL_MS) entries = parsed.entries;
       }
     } catch {}
 
@@ -57,22 +54,20 @@
         'Accept': 'application/vnd.github+json'
         // 'Authorization': `Bearer ${GITHUB_TOKEN}` // <-- solo se repo privato
       };
-      let resp;
       try {
-        resp = await fetch(url, { headers });
+        const resp = await fetch(url, { headers });
+        if (resp.ok) {
+          const data = await resp.json();
+          entries = Array.isArray(data) ? data : (data ? [data] : []);
+        } else if (resp.status === 404) {
+          entries = []; // cartella inesistente -> tratta come vuota
+        } else {
+          entries = [];
+        }
       } catch {
-        entries = null;
+        entries = [];
       }
-      if (resp && resp.ok) {
-        const data = await resp.json();
-        entries = Array.isArray(data) ? data : (data ? [data] : []);
-        try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, entries })); } catch {}
-      } else if (resp && resp.status === 404) {
-        entries = []; // cartella inesistente -> tratta come vuota
-        try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, entries })); } catch {}
-      } else if (!entries) {
-        entries = []; // errore generico -> tratta come vuota
-      }
+      try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, entries })); } catch {}
     }
 
     // 3) render per ogni UL del gruppo
@@ -85,9 +80,8 @@
         })
         .map(e => ({
           name: e.name,
-          // Usa SEMPRE la pagina GitHub (viewer) così il PDF si apre in una nuova scheda
-          url: e.html_url,
-          time: e.sha // proxy leggero
+          url: e.html_url,        // viewer GitHub -> apre in nuova scheda senza download
+          time: e.sha
         }))
         .sort((a, b) => {
           const cmp = (j.sort === 'time')
@@ -96,11 +90,8 @@
           return j.order === 'desc' ? -cmp : cmp;
         });
 
-      if (!items.length) {
-        pruneUp(j.ul);
-      } else {
-        renderList(j.ul, items);
-      }
+      if (!items.length) pruneUp(j.ul);
+      else renderList(j.ul, items);
     }
   }));
 
@@ -115,17 +106,17 @@
       const li = document.createElement('li');
       const a  = document.createElement('a');
       a.className = 'file-link';
-      a.href = it.url;                 // pagina viewer GitHub
-      a.target = '_blank';             // nuova scheda
-      a.rel = 'noopener noreferrer';   // sicurezza
-      a.removeAttribute('download');   // evita hint di download
+      a.href = it.url;                       // pagina viewer GitHub
+      a.target = '_blank';                   // nuova scheda
+      a.rel = 'noopener noreferrer';         // sicurezza
+      a.removeAttribute('download');         // assicurati che non scarichi
       a.textContent = it.name;
       li.appendChild(a);
       ul.appendChild(li);
     }
   }
 
-  // Rimuove UL e pota contenitori padri finché vuoti: details.accordion/.nested e .uncat
+  // Rimuove UL e pota contenitori padri finché vuoti: details(.accordion/.nested) e .uncat
   function pruneUp(startNode) {
     if (!startNode) return;
     const ul = startNode.closest('.auto-list') || startNode;
@@ -139,9 +130,7 @@
           node.remove();
           node = next;
           continue;
-        } else {
-          break; // ha ancora contenuti, ci fermiamo
-        }
+        } else break;
       }
       // NON rimuovere mai <section>
       if (node.matches('section')) break;
