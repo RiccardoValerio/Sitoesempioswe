@@ -1,15 +1,32 @@
 /**
  * Auto-index GitHub folders and render lists (public repos).
- * - Apre SEMPRE il PDF diretto della repo (download_url) in nuova scheda (no download forzato).
- * - Pota contenitori vuoti (details/.uncat), MAI le <section>.
+ * - Link direttamente agli URL del SITO (es. https://user.github.io/repo/docs/.../file.pdf)
+ * - Se cartella vuota/inesistente: rimuove la UL e pota i contenitori (details/.uncat).
+ * - NON rimuove mai le <section>.
  * - Richieste in parallelo + cache locale 5 min.
  */
 (async () => {
   const lists = Array.from(document.querySelectorAll('.auto-list[data-repo-owner][data-repo-name][data-path]'));
   if (!lists.length) return;
 
-  const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minuti cache
+  const CACHE_TTL_MS = 5 * 60 * 1000; // 5 min
   const now = Date.now();
+
+  // Base URL del sito: può essere definita su <html data-site-base="https://.../repo/">
+  // oppure inferita automaticamente per GitHub Pages.
+  function inferSiteBase(repo) {
+    const attr = document.documentElement.getAttribute('data-site-base');
+    if (attr) return ensureTrailingSlash(attr);
+
+    const { origin, hostname } = window.location;
+    if (hostname.endsWith('github.io')) {
+      // project pages: https://user.github.io/<repo>/
+      return ensureTrailingSlash(`${origin}/${repo}/`);
+    }
+    // custom domain / hosting diverso: servito alla radice
+    return ensureTrailingSlash(`${origin}/`);
+  }
+  function ensureTrailingSlash(s) { return s.endsWith('/') ? s : s + '/'; }
 
   const jobs = lists.map(ul => ({
     ul,
@@ -19,9 +36,11 @@
     path: (ul.dataset.path || '').replace(/^\/+|\/+$/g, ''),
     exts: (ul.dataset.extensions || '.pdf').split(',').map(s => s.trim().toLowerCase()),
     sort: (ul.dataset.sort || 'name').toLowerCase(),
-    order: (ul.dataset.order || 'asc').toLowerCase()
+    order: (ul.dataset.order || 'asc').toLowerCase(),
+    siteBase: ensureTrailingSlash(ul.dataset.siteBase || inferSiteBase(ul.dataset.repoName))
   }));
 
+  // Raggruppa per path per evitare fetch duplicati
   const byKey = new Map();
   for (const j of jobs) {
     const key = `${j.owner}/${j.repo}@${j.branch}/${j.path}`;
@@ -53,11 +72,13 @@
           const data = await resp.json();
           entries = Array.isArray(data) ? data : (data ? [data] : []);
         } else if (resp.status === 404) {
-          entries = []; // cartella inesistente
+          entries = [];
         } else {
           entries = [];
         }
-      } catch { entries = []; }
+      } catch {
+        entries = [];
+      }
       try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, entries })); } catch {}
     }
 
@@ -66,12 +87,16 @@
       const items = (entries || [])
         .filter(e => e.type === 'file')
         .filter(e => j.exts.some(ext => (e.name || '').toLowerCase().endsWith(ext)))
-        .map(e => ({
-          name: e.name,
-          // URL diretto al file nella repo (raw.githubusercontent.com)
-          url: e.download_url || e.html_url,
-          time: e.sha
-        }))
+        .map(e => {
+          // Costruisci URL del sito: SITE_BASE + path relativo del file
+          // Es.: https://user.github.io/repo/ + docs/.../file.pdf
+          const siteUrl = j.siteBase + e.path.replace(/^\/+/, '');
+          return {
+            name: e.name,
+            url: siteUrl,
+            time: e.sha
+          };
+        })
         .sort((a, b) => {
           const cmp = (j.sort === 'time')
             ? (a.time || '').localeCompare(b.time || '')
@@ -95,10 +120,10 @@
       const li = document.createElement('li');
       const a  = document.createElement('a');
       a.className = 'file-link';
-      a.href = it.url;                     // URL diretto del PDF
+      a.href = it.url;                     // URL del PDF sul TUO sito
       a.target = '_blank';                 // nuova scheda
-      a.rel = 'noopener noreferrer';       // sicurezza
-      a.removeAttribute('download');       // evita suggerimento download
+      a.rel = 'noopener noreferrer';
+      a.removeAttribute('download');       // non forzare download
       a.textContent = it.name;
       li.appendChild(a);
       ul.appendChild(li);
@@ -120,7 +145,7 @@
           continue;
         } else break;
       }
-      if (node.matches('section')) break; // mai rimuovere le section
+      if (node.matches('section')) break; // non rimuovere le section
       node = node.parentElement;
     }
   }
