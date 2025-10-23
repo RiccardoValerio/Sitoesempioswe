@@ -1,20 +1,19 @@
 /**
  * Auto-index GitHub folders and render lists (public repos).
- * - Popola <ul class="auto-list"> in base al contenuto del repo.
- * - Se cartella mancante/vuota -> rimuove la <ul>, poi "potatura" up:
- *   rimuove <details>/<div.uncat> vuoti, e fino alla <section>.
- * - Dopo il rendering, esegue una cleanup globale per rimuovere anche
- *   gli accordion "Documenti"/"Verbali" rimasti vuoti e le sezioni senza contenuti.
+ * VERSIONE: mantiene SEMPRE visibili le <section> principali.
+ * - Se una cartella è vuota/inesistente: rimuove la <ul.auto-list>.
+ * - Se un contenitore (details .accordion o div.uncat) resta senza contenuti: lo rimuove.
+ * - NON rimuove le <section> principali (Candidatura, RTB, PB, Presentazione).
  */
 
 (async () => {
   const lists = Array.from(document.querySelectorAll('.auto-list[data-repo-owner][data-repo-name][data-path]'));
   if (!lists.length) return;
 
-  // Sezioni che contengono almeno una auto-list prima del fetch
-  const sectionsWithAuto = new Set(lists.map(ul => ul.closest('section')).filter(Boolean));
+  // Config
+  const CACHE_TTL_MS = 60 * 1000; // 1 min cache
+  const REMOVE_EMPTY_SECTIONS = false; // <-- lasciala false per NON rimuovere mai le <section>
 
-  const CACHE_TTL_MS = 60 * 1000; // 1 min
   const now = Date.now();
 
   for (const ul of lists) {
@@ -38,7 +37,7 @@
       }
     } catch {}
 
-    // Fetch da GitHub se serve
+    // Fetch GitHub
     if (!items) {
       const apiUrl = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(branch)}`;
       const headers = { 'Accept': 'application/vnd.github+json' };
@@ -52,7 +51,7 @@
       }
 
       if (!resp.ok) {
-        pruneUp(ul); // 404 o altro -> rimuovi e risali
+        pruneUp(ul); // 404 o altro -> rimuovi lista e contenitori vuoti
         continue;
       }
 
@@ -68,7 +67,7 @@
         .map(e => ({
           name: e.name,
           url: e.download_url || e.html_url,
-          time: e.sha // proxy leggero
+          time: e.sha
         }));
 
       items.sort((a, b) => {
@@ -83,17 +82,15 @@
       } catch {}
     }
 
-    // Se vuoto -> rimuovi e risali
     if (!items || !items.length) {
-      pruneUp(ul);
+      pruneUp(ul); // lista vuota -> rimuovi lista e contenitori vuoti, NON la section
       continue;
     }
 
-    // Render lista
     renderList(ul, items);
   }
 
-  // Cleanup globale: elimina accordion "Documenti"/"Verbali" vuoti e sezioni vuote (niente <h2> o altro)
+  // Cleanup finale: rimuovi contenitori vuoti (details/uncat); NON rimuovere le section se flag = false
   cleanupAll();
 
   /* ================== funzioni ================== */
@@ -113,15 +110,21 @@
     }
   }
 
-  // Rimuove UL e risale: <details>/.uncat -> eventuale details padre -> <section>
+  /**
+   * Rimuove la UL e pota i PADRI finché sono vuoti:
+   * - <details.accordion> (Documenti/Verbali) e <details.nested>
+   * - <div.uncat>
+   * NON rimuove mai la <section> se REMOVE_EMPTY_SECTIONS=false
+   */
   function pruneUp(startNode) {
     if (!startNode) return;
     const ul = startNode.closest('.auto-list') || startNode;
     if (ul && ul.matches('.auto-list')) ul.remove();
 
     let node = (ul && ul.parentElement) ? ul.parentElement : null;
+
     while (node) {
-      // Se è contenitore intermedio
+      // Se contenitore intermedio
       if (node.matches('details, .uncat')) {
         if (isContainerEmpty(node)) {
           const next = node.parentElement;
@@ -130,50 +133,56 @@
           continue;
         } else break; // ha ancora contenuti
       }
-      // Se è sezione
+
+      // Sezione: rimuovi solo se esplicitamente abilitato
       if (node.matches('section')) {
-        if (isSectionEmpty(node)) {
+        if (REMOVE_EMPTY_SECTIONS && isSectionEmpty(node)) {
           const next = node.parentElement;
           node.remove();
           node = next;
           continue;
-        } else break;
+        } else {
+          break; // non toccare la section
+        }
       }
+
       node = node.parentElement;
     }
   }
 
-  // Un contenitore (details/uncat) è vuoto se non ha auto-list, né file-list con link
+  // Un contenitore è vuoto se non ha .auto-list, né link utili, né figli details
   function isContainerEmpty(container) {
     if (!container) return true;
     if (container.querySelector('.auto-list')) return false;
-    if (container.querySelector('.file-list a')) return false;
-    // Se è un <details> "padre" (Documenti/Verbali) e non ha più <details> figli
-    if (container.matches('details.accordion') && !container.querySelector('details')) {
-      return true;
-    }
-    return true; // Se non ha niente di utile, è vuoto
+    if (container.querySelector('.file-list a, .list a')) return false;
+    // Se è un <details.accordion> (padre) senza <details> figli e senza contenuti linkati -> vuoto
+    if (container.matches('details.accordion') && !container.querySelector('details')) return true;
+    // Se è un <details.nested> senza <ul> con link -> vuoto
+    if (container.matches('details.accordion.nested') && !container.querySelector('.file-list a')) return true;
+    // Se è un .uncat senza link -> vuoto
+    if (container.matches('.uncat') && !container.querySelector('.uncat-files a, .file-list a')) return true;
+
+    // Se non troviamo nulla di utile, consideralo vuoto
+    const hasAnyLink = container.querySelector('a[href]');
+    return !hasAnyLink;
   }
 
-  // Una sezione è vuota se non ha contenitori utili né liste con link.
-  // (Il semplice <h2> non la salva: viene rimossa insieme al titolo)
+  // Una sezione è vuota se non contiene dettagli/uncat NON vuoti né liste con link
   function isSectionEmpty(section) {
     if (!section) return true;
-    if (section.querySelector('.auto-list')) return false;
-    if (section.querySelector('details, .uncat')) {
-      // controlla se ci sono details/uncat NON vuoti
-      const containers = section.querySelectorAll('details, .uncat');
-      for (const c of containers) {
-        if (!isContainerEmpty(c)) return false;
-      }
+    // Se contiene ancora un details/.uncat con contenuti utili -> non vuota
+    const containers = section.querySelectorAll('details, .uncat');
+    for (const c of containers) {
+      if (!isContainerEmpty(c)) return false;
     }
+    // Se ha liste manuali con link -> non vuota
     if (section.querySelector('.list a, .file-list a')) return false;
+
     return true;
   }
 
-  // Pulisce tutto: rimuove details/uncat vuoti e poi sezioni vuote
   function cleanupAll() {
-    // 1) Rimuovi tutti i details/uncat vuoti (anche a catena)
+    // Rimuovi tutti i details/uncat vuoti (anche a catena)
     let changed = true;
     while (changed) {
       changed = false;
@@ -186,10 +195,12 @@
       });
     }
 
-    // 2) Rimuovi sezioni vuote (titolo compreso)
-    document.querySelectorAll('section').forEach(section => {
-      if (!document.body.contains(section)) return;
-      if (isSectionEmpty(section)) section.remove();
-    });
+    // Se richiesto, rimuovi anche le section vuote (di default NO)
+    if (REMOVE_EMPTY_SECTIONS) {
+      document.querySelectorAll('section').forEach(section => {
+        if (!document.body.contains(section)) return;
+        if (isSectionEmpty(section)) section.remove();
+      });
+    }
   }
 })();
