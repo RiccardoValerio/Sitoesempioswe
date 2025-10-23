@@ -1,9 +1,12 @@
-/* ===== Base e colori ===== */
+/* ===== Reset & Tokens ===== */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 :root{
   --bg:#0f172a; --panel:#111827; --text:#e5e7eb; --text-strong:#fff;
   --border:#1f2937; --accent:#60a5fa; --muted:#9ca3af; --radius:.6rem;
+  --ring: 0 0 0 3px rgba(96,165,250,.25);
 }
+
+/* ===== Base ===== */
 body{
   font-family: system-ui,-apple-system,"Segoe UI",Roboto,Arial;
   line-height:1.5; background:var(--bg); color:var(--text);
@@ -15,7 +18,7 @@ body{
 
 /* ===== Header ===== */
 .header{ background:var(--panel); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:10; }
-.header-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+.header-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.75rem; }
 .brand{ display:flex; align-items:center; gap:.5rem; font-weight:700; color:var(--text-strong); text-decoration:none; }
 .brand-logo{ width:38px; height:38px; border-radius:50%; }
 
@@ -28,6 +31,8 @@ body{
   transition:border-color .2s ease, color .2s ease;
 }
 .nav a:hover{ border-color:var(--accent); color:var(--accent); }
+.nav a[aria-current="page"]{ border-color:var(--accent); color:var(--accent); }
+.nav a:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
 
 /* ===== Hero ===== */
 .hero{ text-align:center; padding-block:2rem; border-bottom:1px solid var(--border); }
@@ -38,9 +43,12 @@ body{
   display:inline-block; background:var(--accent); color:#000; text-decoration:none;
   padding:.55rem 1rem; border-radius:var(--radius); font-weight:600;
   border:1px solid var(--border);
-  transition:border-color .2s ease, box-shadow .2s ease;
+  transition:border-color .2s ease, box-shadow .2s ease, transform .02s ease;
+  line-height:1;
 }
 .btn:hover{ border-color:var(--accent); box-shadow:0 0 0 2px rgba(96,165,250,.15); }
+.btn:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
+.btn:active{ transform: translateY(1px); }
 
 /* ===== Liste documenti ===== */
 .list{ list-style:none; margin:.4rem 0 1rem; padding:0; }
@@ -49,9 +57,10 @@ body{
   display:block; text-decoration:none; color:var(--text);
   background:var(--panel); border:1px solid var(--border);
   border-radius:var(--radius); padding:.55rem .8rem;
-  transition:border-color .2s ease, color .2s ease;
+  transition:border-color .2s ease, color .2s ease, box-shadow .2s ease;
 }
 .list a:hover{ border-color:var(--accent); color:var(--accent); }
+.list a:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
 
 /* ===== Team ===== */
 .centered{text-align:center;}
@@ -62,6 +71,7 @@ body{
 .card{
   background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
   padding:1rem; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,.25);
+  transition:border-color .2s ease, box-shadow .2s ease;
 }
 .card:hover{ border-color:var(--accent);}
 .card strong{ color:var(--text-strong); display:block; margin-bottom:.25rem; }
@@ -70,12 +80,77 @@ body{
 .pill{
   display:inline-block; padding:.45rem .7rem; border:1px solid var(--border);
   border-radius:1rem; background:var(--panel); color:var(--text);
-  text-decoration:none; transition:border-color .2s ease, color .2s ease;
+  text-decoration:none; transition:border-color .2s ease, color .2s ease, box-shadow .2s ease;
 }
 .pill:hover{ border-color:var(--accent); color:var(--accent); }
+.pill:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
 
 /* ===== Footer ===== */
 .footer{
   background:var(--panel); border-top:1px solid var(--border);
   text-align:center; color:var(--muted); padding:.6rem 0;
+}
+
+/* ===== Accessibilità & Usabilità ===== */
+a:focus-visible { outline:none; box-shadow:var(--ring); border-color:var(--accent); }
+section[id]{ scroll-margin-top: 80px; }  /* evita overlap con header sticky */
+html{ scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; scroll-behavior:auto !important; }
+}
+
+/* ===== Accordion (<details>/<summary>) ===== */
+.accordion{
+  margin:.6rem 0 1rem;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--panel);
+  overflow:hidden;
+}
+.accordion > summary{
+  cursor:pointer; list-style:none; padding:.65rem .8rem; color:var(--text-strong);
+  user-select:none; display:flex; align-items:center; gap:.5rem;
+}
+.accordion > summary::-webkit-details-marker{ display:none; }
+.accordion > summary::after{
+  content:"▸"; margin-left:auto; transition: transform .15s ease;
+}
+.accordion[open] > summary::after{ transform: rotate(90deg); }
+.accordion[open]{ border-color:var(--accent); }
+
+/* Livello annidato */
+.accordion .nested{
+  margin:.5rem; border:1px solid var(--border); border-radius:var(--radius); background:transparent;
+}
+.accordion .nested > summary{
+  padding:.55rem .7rem; color:var(--text); font-weight:600;
+}
+.accordion .nested[open]{ border-color:var(--accent); }
+
+/* Liste file dentro l'accordion */
+.file-list{ list-style:none; margin:.4rem; padding:.2rem; }
+.file-list li + li{ margin-top:.35rem; }
+.file-link{
+  display:block; padding:.55rem .8rem; border:1px solid var(--border);
+  border-radius:var(--radius); color:var(--text); text-decoration:none;
+  background:var(--panel);
+  transition:border-color .2s ease, color .2s ease, box-shadow .2s ease;
+}
+.file-link:hover{ border-color:var(--accent); color:var(--accent); }
+.file-link:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
+
+/* ===== Utility: skip-link / visually-hidden ===== */
+.skip-link{
+  position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+}
+.skip-link:focus{
+  left:1rem; top:1rem; width:auto; height:auto; z-index:1000;
+  background:var(--accent); color:#000; padding:.5rem .75rem;
+  border-radius:.4rem; box-shadow:var(--ring);
+}
+.visually-hidden{
+  position:absolute !important; clip:rect(1px, 1px, 1px, 1px);
+  padding:0 !important; border:0 !important; height:1px !important; width:1px !important;
+  overflow:hidden; white-space:nowrap;
 }
