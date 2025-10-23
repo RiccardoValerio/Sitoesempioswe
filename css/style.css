@@ -50,17 +50,20 @@ body{
 .btn:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
 .btn:active{ transform: translateY(1px); }
 
-/* ===== Liste documenti ===== */
+/* ===== Liste base ===== */
 .list{ list-style:none; margin:.4rem 0 1rem; padding:0; }
 .list li{ margin:.35rem 0; }
-.list a{
+.list a,
+.file-link{
   display:block; text-decoration:none; color:var(--text);
   background:var(--panel); border:1px solid var(--border);
   border-radius:var(--radius); padding:.55rem .8rem;
   transition:border-color .2s ease, color .2s ease, box-shadow .2s ease;
 }
-.list a:hover{ border-color:var(--accent); color:var(--accent); }
-.list a:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
+.list a:hover,
+.file-link:hover{ border-color:var(--accent); color:var(--accent); }
+.list a:focus-visible,
+.file-link:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
 
 /* ===== Team ===== */
 .centered{text-align:center;}
@@ -131,14 +134,24 @@ html{ scroll-behavior: smooth; }
 /* Liste file dentro l'accordion */
 .file-list{ list-style:none; margin:.4rem; padding:.2rem; }
 .file-list li + li{ margin-top:.35rem; }
-.file-link{
-  display:block; padding:.55rem .8rem; border:1px solid var(--border);
-  border-radius:var(--radius); color:var(--text); text-decoration:none;
-  background:var(--panel);
-  transition:border-color .2s ease, color .2s ease, box-shadow .2s ease;
+
+/* ===== Documenti “fuori categoria” ===== */
+.uncat{
+  margin-top: .8rem;
+  padding-top: .4rem;
+  border-top: 1px dashed var(--border); /* separatore leggero sotto le ramificazioni */
 }
-.file-link:hover{ border-color:var(--accent); color:var(--accent); }
-.file-link:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
+.uncat-title{
+  margin:.6rem 0 .4rem;
+  font-size:1rem;
+  color:var(--text-strong);
+}
+.uncat-files{
+  list-style:none;
+  margin:.2rem 0 0;
+  padding:0;
+}
+.uncat-files li + li{ margin-top:.35rem; }
 
 /* ===== Utility: skip-link / visually-hidden ===== */
 .skip-link{
