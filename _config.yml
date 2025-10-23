@@ -1,0 +1,6 @@
+title: Sito SWE Atlas
+baseurl: "/Sitoesempioswe"   # << nome repo, con lo slash iniziale
+url: "https://riccardovalerio.github.io"
+markdown: kramdown
+theme: null
+plugins: []                  # nessun plugin (compatibile con GitHub Pages)
