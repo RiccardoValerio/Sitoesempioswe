@@ -139,7 +139,7 @@ html{ scroll-behavior: smooth; }
 .uncat{
   margin-top: .8rem;
   padding-top: .4rem;
-  border-top: 1px dashed var(--border); /* separatore leggero sotto le ramificazioni */
+  border-top: 1px dashed var(--border);
 }
 .uncat-title{
   margin:.6rem 0 .4rem;
