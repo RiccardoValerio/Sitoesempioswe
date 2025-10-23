@@ -85,7 +85,8 @@
         })
         .map(e => ({
           name: e.name,
-          url: e.download_url || e.html_url,
+          // Usa SEMPRE la pagina GitHub (viewer) così il PDF si apre in una nuova scheda
+          url: e.html_url,
           time: e.sha // proxy leggero
         }))
         .sort((a, b) => {
@@ -114,9 +115,10 @@
       const li = document.createElement('li');
       const a  = document.createElement('a');
       a.className = 'file-link';
-      a.href = it.url;
-      a.target = '_blank';
-      a.rel = 'noopener';
+      a.href = it.url;                 // pagina viewer GitHub
+      a.target = '_blank';             // nuova scheda
+      a.rel = 'noopener noreferrer';   // sicurezza
+      a.removeAttribute('download');   // evita hint di download
       a.textContent = it.name;
       li.appendChild(a);
       ul.appendChild(li);
@@ -165,11 +167,8 @@
   // Un contenitore è "utile" se contiene almeno un link file o una auto-list non vuota
   function isContainerEmpty(container) {
     if (!container) return true;
-    // Se ha ancora una auto-list (non renderizzata vuota) la consideriamo utile
     if (container.querySelector('.auto-list')) return false;
-    // Se ha link file renderizzati
     if (container.querySelector('.file-list a, .uncat-files a, .list a')) return false;
-    // Se è <details.accordion> padre che contiene ancora <details> figli non vuoti
     const childDetails = container.querySelectorAll('details');
     for (const d of childDetails) {
       if (d.querySelector('.file-list a, .auto-list')) return false;
