@@ -106,7 +106,7 @@
   // ripulisce residui: rimuovi accordion/uncat rimasti vuoti (ma NON le section)
   cleanupContainers();
 
-  /* ============= funzioni ============= 
+  /* ============= funzioni ============= */
 
   function renderList(ul, items) {
     ul.innerHTML = '';
@@ -175,5 +175,5 @@
       if (d.querySelector('.file-list a, .auto-list')) return false;
     }
     return true;
-  }*/
+  }
 })();
