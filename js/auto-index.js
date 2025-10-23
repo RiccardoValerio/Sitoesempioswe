@@ -1,11 +1,8 @@
 /**
  * Auto-index GitHub folders and render lists (public repos).
- * - Popola le <ul class="auto-list"> con i file nelle cartelle del repo.
- * - Se una cartella è vuota/inesistente: rimuove la UL e "pota" i contenitori genitori
- *   (<details> Documenti/Verbali e .uncat) se rimasti senza contenuti.
- * - NON rimuove mai le <section> principali.
- * - Apri SEMPRE nel viewer GitHub (html_url) in nuova scheda (no download).
- * - Richieste in parallelo, cache locale 5 minuti per path.
+ * - Apre SEMPRE il PDF diretto della repo (download_url) in nuova scheda (no download forzato).
+ * - Pota contenitori vuoti (details/.uncat), MAI le <section>.
+ * - Richieste in parallelo + cache locale 5 min.
  */
 (async () => {
   const lists = Array.from(document.querySelectorAll('.auto-list[data-repo-owner][data-repo-name][data-path]'));
@@ -14,7 +11,6 @@
   const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minuti cache
   const now = Date.now();
 
-  // Raggruppa per path per evitare fetch duplicati
   const jobs = lists.map(ul => ({
     ul,
     owner: ul.dataset.repoOwner,
@@ -38,7 +34,7 @@
     const cacheKey = `ghls:${key}`;
     let entries;
 
-    // 1) cache
+    // cache
     try {
       const cached = localStorage.getItem(cacheKey);
       if (cached) {
@@ -47,40 +43,33 @@
       }
     } catch {}
 
-    // 2) fetch se necessario
+    // fetch se necessario
     if (!entries) {
       const url = `https://api.github.com/repos/${encodeURIComponent(sample.owner)}/${encodeURIComponent(sample.repo)}/contents/${encodeURIComponent(sample.path)}?ref=${encodeURIComponent(sample.branch)}`;
-      const headers = {
-        'Accept': 'application/vnd.github+json'
-        // 'Authorization': `Bearer ${GITHUB_TOKEN}` // <-- solo se repo privato
-      };
+      const headers = { 'Accept': 'application/vnd.github+json' };
       try {
         const resp = await fetch(url, { headers });
         if (resp.ok) {
           const data = await resp.json();
           entries = Array.isArray(data) ? data : (data ? [data] : []);
         } else if (resp.status === 404) {
-          entries = []; // cartella inesistente -> tratta come vuota
+          entries = []; // cartella inesistente
         } else {
           entries = [];
         }
-      } catch {
-        entries = [];
-      }
+      } catch { entries = []; }
       try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, entries })); } catch {}
     }
 
-    // 3) render per ogni UL del gruppo
+    // render per ogni UL del gruppo
     for (const j of group) {
       const items = (entries || [])
         .filter(e => e.type === 'file')
-        .filter(e => {
-          const n = (e.name || '').toLowerCase();
-          return j.exts.some(ext => n.endsWith(ext));
-        })
+        .filter(e => j.exts.some(ext => (e.name || '').toLowerCase().endsWith(ext)))
         .map(e => ({
           name: e.name,
-          url: e.html_url,        // viewer GitHub -> apre in nuova scheda senza download
+          // URL diretto al file nella repo (raw.githubusercontent.com)
+          url: e.download_url || e.html_url,
           time: e.sha
         }))
         .sort((a, b) => {
@@ -95,10 +84,10 @@
     }
   }));
 
-  // ripulisce residui: rimuovi accordion/uncat rimasti vuoti (ma NON le section)
+  // pulizia contenitori vuoti (non tocca le section)
   cleanupContainers();
 
-  /* ============= funzioni ============= */
+  /* ===== funzioni ===== */
 
   function renderList(ul, items) {
     ul.innerHTML = '';
@@ -106,17 +95,16 @@
       const li = document.createElement('li');
       const a  = document.createElement('a');
       a.className = 'file-link';
-      a.href = it.url;                       // pagina viewer GitHub
-      a.target = '_blank';                   // nuova scheda
-      a.rel = 'noopener noreferrer';         // sicurezza
-      a.removeAttribute('download');         // assicurati che non scarichi
+      a.href = it.url;                     // URL diretto del PDF
+      a.target = '_blank';                 // nuova scheda
+      a.rel = 'noopener noreferrer';       // sicurezza
+      a.removeAttribute('download');       // evita suggerimento download
       a.textContent = it.name;
       li.appendChild(a);
       ul.appendChild(li);
     }
   }
 
-  // Rimuove UL e pota contenitori padri finché vuoti: details(.accordion/.nested) e .uncat
   function pruneUp(startNode) {
     if (!startNode) return;
     const ul = startNode.closest('.auto-list') || startNode;
@@ -132,13 +120,11 @@
           continue;
         } else break;
       }
-      // NON rimuovere mai <section>
-      if (node.matches('section')) break;
+      if (node.matches('section')) break; // mai rimuovere le section
       node = node.parentElement;
     }
   }
 
-  // Rimozione finale di contenitori vuoti residui (senza toccare le section)
   function cleanupContainers() {
     let changed = true;
     while (changed) {
@@ -153,7 +139,6 @@
     }
   }
 
-  // Un contenitore è "utile" se contiene almeno un link file o una auto-list non vuota
   function isContainerEmpty(container) {
     if (!container) return true;
     if (container.querySelector('.auto-list')) return false;
