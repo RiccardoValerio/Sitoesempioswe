@@ -1,12 +1,15 @@
-<!doctype html>
-<html lang="it" data-site-base="https://riccardovalerio.github.io/Sitoesempioswe/">
+---
+layout: null
+---
 
+<!doctype html>
+<html lang="it">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gruppo Atlas — SWE 25/26</title>
   <meta name="description" content="Sito del gruppo Atlas per il progetto di Ingegneria del Software 2025/2026">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/style.css">
 </head>
 <body>
 
@@ -16,7 +19,7 @@
   <header class="header" role="banner">
     <div class="container header-row">
       <a href="#top" class="brand" aria-label="Home Atlas">
-        <img src="img/AtlasLogo.png" alt="Logo Atlas" class="brand-logo" loading="lazy">
+        <img src="{{ site.baseurl }}/img/AtlasLogo.png" alt="Logo Atlas" class="brand-logo" loading="lazy">
         <span>Atlas</span>
       </a>
       <nav class="nav" aria-label="Navigazione principale">
@@ -33,268 +36,157 @@
 
     <!-- HERO -->
     <section id="top" class="hero">
-      <img src="img/AtlasLogo.png" alt="Logo Atlas" class="hero-logo" loading="lazy">
+      <img src="{{ site.baseurl }}/img/AtlasLogo.png" alt="Logo Atlas" class="hero-logo" loading="lazy">
       <h1>Gruppo Atlas</h1>
       <p class="subtitle">Sito del progetto di <strong>Ingegneria del Software 2025/2026</strong></p>
       <a class="btn" href="https://github.com/AtlasTeam9" target="_blank" rel="noopener">Repository GitHub</a>
     </section>
 
-    <!-- CANDIDATURA -->
+    {%- comment -%}
+      Helper include: {% include list-files.html dir:"/path" exts:"pdf,md" %}
+      Rende una <ul> se trova file, altrimenti stringa vuota.
+    {%- endcomment -%}
+
+    {%- assign PDF = "pdf" -%}
+    {%- assign PDFMD = "pdf,md" -%}
+
+    <!-- ========== CANDIDATURA ========== -->
+    {% capture cand_doc_int %}{% include list-files.html dir:"/docs/candidatura/documenti/interni" exts:PDFMD %}{% endcapture %}
+    {% capture cand_doc_est %}{% include list-files.html dir:"/docs/candidatura/documenti/esterni" exts:PDFMD %}{% endcapture %}
+    {% capture cand_verb_int %}{% include list-files.html dir:"/docs/candidatura/verbali/interni" exts:PDF %}{% endcapture %}
+    {% capture cand_verb_est %}{% include list-files.html dir:"/docs/candidatura/verbali/esterni" exts:PDF %}{% endcapture %}
+    {% capture cand_extra    %}{% include list-files.html dir:"/docs/candidatura/extra" exts:PDFMD %}{% endcapture %}
+    {% assign has_cand_doc = cand_doc_int != "" or cand_doc_est != "" %}
+    {% assign has_cand_ver = cand_verb_int != "" or cand_verb_est != "" %}
+    {% assign has_cand_any = has_cand_doc or has_cand_ver or cand_extra != "" %}
+
     <section id="candidatura" class="section">
       <h2>Candidatura</h2>
 
-      <!-- Documenti -->
+      {% if has_cand_doc %}
       <details class="accordion" open>
         <summary><span class="acc-title">Documenti</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/candidatura/documenti/interni"
-              data-extensions=".pdf,.md"></ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/candidatura/documenti/esterni"
-              data-extensions=".pdf,.md"></ul>
-        </details>
+        {% if cand_doc_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ cand_doc_int }}</details>{% endif %}
+        {% if cand_doc_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ cand_doc_est }}</details>{% endif %}
       </details>
+      {% endif %}
 
-      <!-- Verbali -->
+      {% if has_cand_ver %}
       <details class="accordion">
         <summary><span class="acc-title">Verbali</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/candidatura/verbali/interni"
-              data-extensions=".pdf"></ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/candidatura/verbali/esterni"
-              data-extensions=".pdf"></ul>
-        </details>
+        {% if cand_verb_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ cand_verb_int }}</details>{% endif %}
+        {% if cand_verb_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ cand_verb_est }}</details>{% endif %}
       </details>
+      {% endif %}
 
-      <!-- Altri documenti -->
+      {% if cand_extra != "" %}
       <div class="uncat" aria-labelledby="candidatura-uncat-title">
         <h3 id="candidatura-uncat-title" class="uncat-title">Altri documenti</h3>
-        <ul class="uncat-files auto-list"
-            data-repo-owner="riccardovalerio"
-            data-repo-name="Sitoesempioswe"
-            data-branch="main"
-            data-path="docs/candidatura/extra"
-            data-extensions=".pdf,.md"></ul>
+        {{ cand_extra }}
       </div>
+      {% endif %}
     </section>
 
-    <!-- RTB -->
+    <!-- ========== RTB ========== -->
+    {% capture rtb_doc_int %}{% include list-files.html dir:"/docs/rtb/documenti/interni" exts:PDFMD %}{% endcapture %}
+    {% capture rtb_doc_est %}{% include list-files.html dir:"/docs/rtb/documenti/esterni" exts:PDFMD %}{% endcapture %}
+    {% capture rtb_verb_int %}{% include list-files.html dir:"/docs/rtb/verbali/interni" exts:PDF %}{% endcapture %}
+    {% capture rtb_verb_est %}{% include list-files.html dir:"/docs/rtb/verbali/esterni" exts:PDF %}{% endcapture %}
+    {% capture rtb_extra    %}{% include list-files.html dir:"/docs/rtb/extra" exts:PDFMD %}{% endcapture %}
+    {% assign has_rtb_doc = rtb_doc_int != "" or rtb_doc_est != "" %}
+    {% assign has_rtb_ver = rtb_verb_int != "" or rtb_verb_est != "" %}
+
     <section id="rtb" class="section">
       <h2>RTB — Requirements &amp; Technology Baseline</h2>
 
+      {% if has_rtb_doc %}
       <details class="accordion" open>
         <summary><span class="acc-title">Documenti</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/rtb/documenti/interni"
-              data-extensions=".pdf,.md"></ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/rtb/documenti/esterni"
-              data-extensions=".pdf,.md"></ul>
-        </details>
+        {% if rtb_doc_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ rtb_doc_int }}</details>{% endif %}
+        {% if rtb_doc_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ rtb_doc_est }}</details>{% endif %}
       </details>
+      {% endif %}
 
+      {% if has_rtb_ver %}
       <details class="accordion">
         <summary><span class="acc-title">Verbali</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/rtb/verbali/interni"
-              data-extensions=".pdf"></ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/rtb/verbali/esterni"
-              data-extensions=".pdf"></ul>
-        </details>
+        {% if rtb_verb_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ rtb_verb_int }}</details>{% endif %}
+        {% if rtb_verb_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ rtb_verb_est }}</details>{% endif %}
       </details>
+      {% endif %}
 
-      <div class="uncat" aria-labelledby="rtb-uncat-title">
-        <h3 id="rtb-uncat-title" class="uncat-title">Altri documenti</h3>
-        <ul class="uncat-files auto-list"
-            data-repo-owner="riccardovalerio"
-            data-repo-name="Sitoesempioswe"
-            data-branch="main"
-            data-path="docs/rtb/extra"
-            data-extensions=".pdf,.md"></ul>
-      </div>
+      {% if rtb_extra != "" %}
+      <div class="uncat" aria-labelledby="rtb-uncat-title"><h3 id="rtb-uncat-title" class="uncat-title">Altri documenti</h3>{{ rtb_extra }}</div>
+      {% endif %}
     </section>
 
-    <!-- PB -->
+    <!-- ========== PB ========== -->
+    {% capture pb_doc_int %}{% include list-files.html dir:"/docs/pb/documenti/interni" exts:PDFMD %}{% endcapture %}
+    {% capture pb_doc_est %}{% include list-files.html dir:"/docs/pb/documenti/esterni" exts:PDFMD %}{% endcapture %}
+    {% capture pb_verb_int %}{% include list-files.html dir:"/docs/pb/verbali/interni" exts:PDF %}{% endcapture %}
+    {% capture pb_verb_est %}{% include list-files.html dir:"/docs/pb/verbali/esterni" exts:PDF %}{% endcapture %}
+    {% capture pb_extra    %}{% include list-files.html dir:"/docs/pb/extra" exts:PDFMD %}{% endcapture %}
+    {% assign has_pb_doc = pb_doc_int != "" or pb_doc_est != "" %}
+    {% assign has_pb_ver = pb_verb_int != "" or pb_verb_est != "" %}
+
     <section id="pb" class="section">
       <h2>PB — Product Baseline</h2>
 
+      {% if has_pb_doc %}
       <details class="accordion" open>
         <summary><span class="acc-title">Documenti</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/pb/documenti/interni"
-              data-extensions=".pdf,.md"></ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/pb/documenti/esterni"
-              data-extensions=".pdf,.md"></ul>
-        </details>
+        {% if pb_doc_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ pb_doc_int }}</details>{% endif %}
+        {% if pb_doc_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ pb_doc_est }}</details>{% endif %}
       </details>
+      {% endif %}
 
+      {% if has_pb_ver %}
       <details class="accordion">
         <summary><span class="acc-title">Verbali</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/pb/verbali/interni"
-              data-extensions=".pdf"></ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/pb/verbali/esterni"
-              data-extensions=".pdf"></ul>
-        </details>
+        {% if pb_verb_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ pb_verb_int }}</details>{% endif %}
+        {% if pb_verb_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ pb_verb_est }}</details>{% endif %}
       </details>
+      {% endif %}
 
-      <div class="uncat" aria-labelledby="pb-uncat-title">
-        <h3 id="pb-uncat-title" class="uncat-title">Altri documenti</h3>
-        <ul class="uncat-files auto-list"
-            data-repo-owner="riccardovalerio"
-            data-repo-name="Sitoesempioswe"
-            data-branch="main"
-            data-path="docs/pb/extra"
-            data-extensions=".pdf,.md"></ul>
-      </div>
+      {% if pb_extra != "" %}
+      <div class="uncat" aria-labelledby="pb-uncat-title"><h3 id="pb-uncat-title" class="uncat-title">Altri documenti</h3>{{ pb_extra }}</div>
+      {% endif %}
     </section>
 
-    <!-- PRESENTAZIONE -->
+    <!-- ========== PRESENTAZIONE ========== -->
+    {% capture pr_doc_int %}{% include list-files.html dir:"/docs/presentazione/documenti/interni" exts:PDFMD %}{% endcapture %}
+    {% capture pr_doc_est %}{% include list-files.html dir:"/docs/presentazione/documenti/esterni" exts:PDFMD %}{% endcapture %}
+    {% capture pr_verb_int %}{% include list-files.html dir:"/docs/presentazione/verbali/interni" exts:PDF %}{% endcapture %}
+    {% capture pr_verb_est %}{% include list-files.html dir:"/docs/presentazione/verbali/esterni" exts:PDF %}{% endcapture %}
+    {% capture pr_extra    %}{% include list-files.html dir:"/docs/presentazione/extra" exts:PDFMD %}{% endcapture %}
+    {% assign has_pr_doc = pr_doc_int != "" or pr_doc_est != "" %}
+    {% assign has_pr_ver = pr_verb_int != "" or pr_verb_est != "" %}
+
     <section id="presentazione" class="section">
       <h2>Presentazione &amp; Comunicazioni</h2>
 
+      {% if has_pr_doc %}
       <details class="accordion" open>
         <summary><span class="acc-title">Documenti</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/presentazione/documenti/interni"
-              data-extensions=".pdf,.md"></ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/presentazione/documenti/esterni"
-              data-extensions=".pdf,.md"></ul>
-        </details>
+        {% if pr_doc_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ pr_doc_int }}</details>{% endif %}
+        {% if pr_doc_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ pr_doc_est }}</details>{% endif %}
       </details>
+      {% endif %}
 
+      {% if has_pr_ver %}
       <details class="accordion">
         <summary><span class="acc-title">Verbali</span></summary>
-
-        <details class="accordion nested" open>
-          <summary><span class="acc-title">Interni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/presentazione/verbali/interni"
-              data-extensions=".pdf"></ul>
-        </details>
-
-        <details class="accordion nested">
-          <summary><span class="acc-title">Esterni</span></summary>
-          <ul class="file-list auto-list"
-              data-repo-owner="riccardovalerio"
-              data-repo-name="Sitoesempioswe"
-              data-branch="main"
-              data-path="docs/presentazione/verbali/esterni"
-              data-extensions=".pdf"></ul>
-        </details>
+        {% if pr_verb_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ pr_verb_int }}</details>{% endif %}
+        {% if pr_verb_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ pr_verb_est }}</details>{% endif %}
       </details>
+      {% endif %}
 
-      <div class="uncat" aria-labelledby="presentazione-uncat-title">
-        <h3 id="presentazione-uncat-title" class="uncat-title">Altri documenti</h3>
-        <ul class="uncat-files auto-list"
-            data-repo-owner="riccardovalerio"
-            data-repo-name="Sitoesempioswe"
-            data-branch="main"
-            data-path="docs/presentazione/extra"
-            data-extensions=".pdf,.md"></ul>
-      </div>
+      {% if pr_extra != "" %}
+      <div class="uncat" aria-labelledby="presentazione-uncat-title"><h3 id="presentazione-uncat-title" class="uncat-title">Altri documenti</h3>{{ pr_extra }}</div>
+      {% endif %}
     </section>
 
-    <!-- TEAM (statico) -->
+    <!-- TEAM -->
     <section id="team" class="section">
       <h2 class="centered">Team</h2>
       <ul class="team">
@@ -320,7 +212,5 @@
       <small>© 2025–2026 Gruppo Atlas — Tutti i diritti riservati</small>
     </div>
   </footer>
-
-  <script src="js/auto-index.js" defer></script>
 </body>
 </html>

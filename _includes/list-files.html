@@ -1,0 +1,27 @@
+{%- comment -%}
+Usage:
+{% include list-files.html dir:"/docs/candidatura/documenti/interni", exts:"pdf,md" %}
+Rende una <ul> con i file; se non trova nulla, non rende niente.
+{%- endcomment -%}
+{%- assign _dir = include.dir | default:"" -%}
+{%- assign _exts = include.exts | default:"pdf" | split:"," | uniq -%}
+{%- assign _exts = _exts | map: "strip" -%}
+
+{%- assign files = site.static_files
+  | where_exp: "f", "f.path contains _dir" -%}
+
+{%- assign out = "" -%}
+{%- for f in files -%}
+  {%- assign ext = f.extname | remove_first: "." | downcase -%}
+  {%- if _exts contains ext -%}
+    {%- capture out -%}{{ out }}
+<li><a class="file-link" href="{{ site.baseurl }}{{ f.path }}" target="_blank" rel="noopener">{{ f.name }}</a></li>
+{%- endcapture -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if out != "" -%}
+<ul class="file-list">
+{{ out -}}
+</ul>
+{%- endif -%}
