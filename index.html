@@ -42,23 +42,18 @@ layout: null
       <a class="btn" href="https://github.com/AtlasTeam9" target="_blank" rel="noopener">Repository GitHub</a>
     </section>
 
-    {%- comment -%}
-      Helper include: {% include list-files.html dir:'/path' exts:'pdf,md' %}
-      Rende una <ul> se trova file, altrimenti stringa vuota.
-    {%- endcomment -%}
-
+    {%- comment -%} Helper: variabili per le estensioni {%- endcomment -%}
     {%- assign PDF = "pdf" -%}
     {%- assign PDFMD = "pdf,md" -%}
 
     <!-- ========== CANDIDATURA ========== -->
-    {% capture cand_doc_int %}{% include list-files.html dir:'/docs/candidatura/documenti/interni' exts:PDFMD %}{% endcapture %}
-    {% capture cand_doc_est %}{% include list-files.html dir:'/docs/candidatura/documenti/esterni' exts:PDFMD %}{% endcapture %}
-    {% capture cand_verb_int %}{% include list-files.html dir:'/docs/candidatura/verbali/interni' exts:PDF %}{% endcapture %}
-    {% capture cand_verb_est %}{% include list-files.html dir:'/docs/candidatura/verbali/esterni' exts:PDF %}{% endcapture %}
-    {% capture cand_extra    %}{% include list-files.html dir:'/docs/candidatura/extra' exts:PDFMD %}{% endcapture %}
+    {% capture cand_doc_int %}{% include list-files.html dir="/docs/candidatura/documenti/interni"  exts=PDFMD %}{% endcapture %}
+    {% capture cand_doc_est %}{% include list-files.html dir="/docs/candidatura/documenti/esterni"  exts=PDFMD %}{% endcapture %}
+    {% capture cand_verb_int %}{% include list-files.html dir="/docs/candidatura/verbali/interni"   exts=PDF   %}{% endcapture %}
+    {% capture cand_verb_est %}{% include list-files.html dir="/docs/candidatura/verbali/esterni"   exts=PDF   %}{% endcapture %}
+    {% capture cand_extra    %}{% include list-files.html dir="/docs/candidatura/extra"              exts=PDFMD %}{% endcapture %}
     {% assign has_cand_doc = cand_doc_int != "" or cand_doc_est != "" %}
     {% assign has_cand_ver = cand_verb_int != "" or cand_verb_est != "" %}
-    {% assign has_cand_any = has_cand_doc or has_cand_ver or cand_extra != "" %}
 
     <section id="candidatura" class="section">
       <h2>Candidatura</h2>
@@ -88,11 +83,11 @@ layout: null
     </section>
 
     <!-- ========== RTB ========== -->
-    {% capture rtb_doc_int %}{% include list-files.html dir:'/docs/rtb/documenti/interni' exts:PDFMD %}{% endcapture %}
-    {% capture rtb_doc_est %}{% include list-files.html dir:'/docs/rtb/documenti/esterni' exts:PDFMD %}{% endcapture %}
-    {% capture rtb_verb_int %}{% include list-files.html dir:'/docs/rtb/verbali/interni' exts:PDF %}{% endcapture %}
-    {% capture rtb_verb_est %}{% include list-files.html dir:'/docs/rtb/verbali/esterni' exts:PDF %}{% endcapture %}
-    {% capture rtb_extra    %}{% include list-files.html dir:'/docs/rtb/extra' exts:PDFMD %}{% endcapture %}
+    {% capture rtb_doc_int %}{% include list-files.html dir="/docs/rtb/documenti/interni"  exts=PDFMD %}{% endcapture %}
+    {% capture rtb_doc_est %}{% include list-files.html dir="/docs/rtb/documenti/esterni"  exts=PDFMD %}{% endcapture %}
+    {% capture rtb_verb_int %}{% include list-files.html dir="/docs/rtb/verbali/interni"   exts=PDF   %}{% endcapture %}
+    {% capture rtb_verb_est %}{% include list-files.html dir="/docs/rtb/verbali/esterni"   exts=PDF   %}{% endcapture %}
+    {% capture rtb_extra    %}{% include list-files.html dir="/docs/rtb/extra"              exts=PDFMD %}{% endcapture %}
     {% assign has_rtb_doc = rtb_doc_int != "" or rtb_doc_est != "" %}
     {% assign has_rtb_ver = rtb_verb_int != "" or rtb_verb_est != "" %}
 
@@ -121,11 +116,11 @@ layout: null
     </section>
 
     <!-- ========== PB ========== -->
-    {% capture pb_doc_int %}{% include list-files.html dir:'/docs/pb/documenti/interni' exts:PDFMD %}{% endcapture %}
-    {% capture pb_doc_est %}{% include list-files.html dir:'/docs/pb/documenti/esterni' exts:PDFMD %}{% endcapture %}
-    {% capture pb_verb_int %}{% include list-files.html dir:'/docs/pb/verbali/interni' exts:PDF %}{% endcapture %}
-    {% capture pb_verb_est %}{% include list-files.html dir:'/docs/pb/verbali/esterni' exts:PDF %}{% endcapture %}
-    {% capture pb_extra    %}{% include list-files.html dir:'/docs/pb/extra' exts:PDFMD %}{% endcapture %}
+    {% capture pb_doc_int %}{% include list-files.html dir="/docs/pb/documenti/interni"  exts=PDFMD %}{% endcapture %}
+    {% capture pb_doc_est %}{% include list-files.html dir="/docs/pb/documenti/esterni"  exts=PDFMD %}{% endcapture %}
+    {% capture pb_verb_int %}{% include list-files.html dir="/docs/pb/verbali/interni"   exts=PDF   %}{% endcapture %}
+    {% capture pb_verb_est %}{% include list-files.html dir="/docs/pb/verbali/esterni"   exts=PDF   %}{% endcapture %}
+    {% capture pb_extra    %}{% include list-files.html dir="/docs/pb/extra"              exts=PDFMD %}{% endcapture %}
     {% assign has_pb_doc = pb_doc_int != "" or pb_doc_est != "" %}
     {% assign has_pb_ver = pb_verb_int != "" or pb_verb_est != "" %}
 
@@ -154,11 +149,11 @@ layout: null
     </section>
 
     <!-- ========== PRESENTAZIONE ========== -->
-    {% capture pr_doc_int %}{% include list-files.html dir:'/docs/presentazione/documenti/interni' exts:PDFMD %}{% endcapture %}
-    {% capture pr_doc_est %}{% include list-files.html dir:'/docs/presentazione/documenti/esterni' exts:PDFMD %}{% endcapture %}
-    {% capture pr_verb_int %}{% include list-files.html dir:'/docs/presentazione/verbali/interni' exts:PDF %}{% endcapture %}
-    {% capture pr_verb_est %}{% include list-files.html dir:'/docs/presentazione/verbali/esterni' exts:PDF %}{% endcapture %}
-    {% capture pr_extra    %}{% include list-files.html dir:'/docs/presentazione/extra' exts:PDFMD %}{% endcapture %}
+    {% capture pr_doc_int %}{% include list-files.html dir="/docs/presentazione/documenti/interni"  exts=PDFMD %}{% endcapture %}
+    {% capture pr_doc_est %}{% include list-files.html dir="/docs/presentazione/documenti/esterni"  exts=PDFMD %}{% endcapture %}
+    {% capture pr_verb_int %}{% include list-files.html dir="/docs/presentazione/verbali/interni"   exts=PDF   %}{% endcapture %}
+    {% capture pr_verb_est %}{% include list-files.html dir="/docs/presentazione/verbali/esterni"   exts=PDF   %}{% endcapture %}
+    {% capture pr_extra    %}{% include list-files.html dir="/docs/presentazione/extra"              exts=PDFMD %}{% endcapture %}
     {% assign has_pr_doc = pr_doc_int != "" or pr_doc_est != "" %}
     {% assign has_pr_ver = pr_verb_int != "" or pr_verb_est != "" %}
 

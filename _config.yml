@@ -3,19 +3,12 @@ description: "Sito del progetto di Ingegneria del Software del gruppo Atlas (PD1
 baseurl: "/Sitoesempioswe"  # ⚠️ es. "/atlas-site" oppure "/Sitoesempioswe"
 url: "https://riccardovalerio.github.io"  # es. "https://riccardovalerio.github.io"
 
-# Configurazione minima per GitHub Pages
 markdown: kramdown
 highlighter: rouge
 theme: null
+
 exclude:
   - README.md
   - .github/
   - Gemfile
   - Gemfile.lock
-
-# Abilita l'uso del file include per elencare i documenti
-include:
-  - _includes/list-files.html
-
-# Build locale (solo se provi in locale)
-plugins: []

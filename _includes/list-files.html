@@ -1,34 +1,30 @@
+{%- comment -%}
+Genera <ul class="file-list"> con i file dentro include.dir
+Usa include.exts = "pdf,md" (di default solo "pdf")
+Compatibile con GitHub Pages (Jekyll 3.x, Liquid classico)
+{%- endcomment -%}
+
 {%- assign dir  = include.dir  | default: "" -%}
 {%- assign exts = include.exts | default: "pdf" | downcase | split: "," -%}
 
-{%- comment -%} Prendiamo tutti i file statici dentro la cartella indicata {%- endcomment -%}
-{%- assign files = site.static_files | where_exp: "f", "f.path contains dir" -%}
+{%- comment -%} Prendi i file statici che hanno il path dentro dir {%- endcomment -%}
+{%- assign cand = site.static_files | where_exp: "f", "f.path contains dir" | sort: "path" -%}
 
-{%- assign paths = "" -%}
-{%- for f in files -%}
-  {%- assign fname = f.path | split: "/" | last -%}
-  {%- assign fext  = fname  | split: "." | last | downcase -%}
-
-  {%- assign matched = false -%}
-  {%- for e in exts -%}
-    {%- assign e_trim = e | strip -%}
-    {%- if fext == e_trim -%}
-      {%- assign matched = true -%}
-    {%- endif -%}
-  {%- endfor -%}
-
-  {%- if matched -%}
-    {%- assign paths = paths | append: f.path | append: ";" -%}
+{%- assign any = false -%}
+{%- for f in cand -%}
+  {%- assign ext = f.extname | remove: "." | downcase -%}
+  {%- if exts contains ext -%}
+    {%- assign any = true -%}{%- break -%}
   {%- endif -%}
 {%- endfor -%}
 
-{%- assign list = paths | split: ";" | sort -%}
-{%- if list.size > 0 -%}
+{%- if any -%}
 <ul class="file-list">
-  {%- for p in list -%}
-    {%- if p != "" -%}
-      {%- assign filename = p | split: "/" | last -%}
-      <li><a href="{{ site.baseurl }}{{ p }}" target="_blank" rel="noopener">{{ filename }}</a></li>
+  {%- for f in cand -%}
+    {%- assign ext = f.extname | remove: "." | downcase -%}
+    {%- if exts contains ext -%}
+      {%- assign filename = f.path | split: "/" | last -%}
+      <li><a href="{{ site.baseurl }}{{ f.path }}" target="_blank" rel="noopener">{{ filename }}</a></li>
     {%- endif -%}
   {%- endfor -%}
 </ul>
