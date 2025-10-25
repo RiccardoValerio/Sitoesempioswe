@@ -1,4 +1,4 @@
-<p align="center">
+<p style="border-radius: 50%" align="center">
   <img src="img/AtlasLogo.png" width="90" alt="Logo Atlas">
 </p>
 
