@@ -50,60 +50,7 @@ body{
 .btn:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
 .btn:active{ transform: translateY(1px); }
 
-/* ===== Liste base ===== */
-.list{ list-style:none; margin:.4rem 0 1rem; padding:0; }
-.list li{ margin:.35rem 0; }
-.list a,
-.file-link{
-  display:block; text-decoration:none; color:var(--text);
-  background:var(--panel); border:1px solid var(--border);
-  border-radius:var(--radius); padding:.55rem .8rem;
-  transition:border-color .2s ease, color .2s ease, box-shadow .2s ease;
-}
-.list a:hover,
-.file-link:hover{ border-color:var(--accent); color:var(--accent); }
-.list a:focus-visible,
-.file-link:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
-
-/* ===== Team ===== */
-.centered{text-align:center;}
-.team{
-  list-style:none; margin:1.2rem auto 0; padding:0; max-width:60rem;
-  display:grid; gap:1rem; grid-template-columns:repeat(auto-fit, minmax(16rem,1fr));
-}
-.card{
-  background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
-  padding:1rem; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,.25);
-  transition:border-color .2s ease, box-shadow .2s ease;
-}
-.card:hover{ border-color:var(--accent);}
-.card strong{ color:var(--text-strong); display:block; margin-bottom:.25rem; }
-.muted{ color:var(--muted); }
-
-.pill{
-  display:inline-block; padding:.45rem .7rem; border:1px solid var(--border);
-  border-radius:1rem; background:var(--panel); color:var(--text);
-  text-decoration:none; transition:border-color .2s ease, color .2s ease, box-shadow .2s ease;
-}
-.pill:hover{ border-color:var(--accent); color:var(--accent); }
-.pill:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
-
-/* ===== Footer ===== */
-.footer{
-  background:var(--panel); border-top:1px solid var(--border);
-  text-align:center; color:var(--muted); padding:.6rem 0;
-}
-
-/* ===== Accessibilità & Usabilità ===== */
-a:focus-visible { outline:none; box-shadow:var(--ring); border-color:var(--accent); }
-section[id]{ scroll-margin-top: 80px; }  /* evita overlap con header sticky */
-html{ scroll-behavior: smooth; }
-
-@media (prefers-reduced-motion: reduce){
-  *{ transition:none !important; scroll-behavior:auto !important; }
-}
-
-/* ===== Accordion (<details>/<summary>) ===== */
+/* ===== Accordion ===== */
 .accordion{
   margin:.6rem 0 1rem;
   border:1px solid var(--border);
@@ -122,7 +69,6 @@ html{ scroll-behavior: smooth; }
 .accordion[open] > summary::after{ transform: rotate(90deg); }
 .accordion[open]{ border-color:var(--accent); }
 
-/* Livello annidato */
 .accordion .nested{
   margin:.5rem; border:1px solid var(--border); border-radius:var(--radius); background:transparent;
 }
@@ -131,29 +77,70 @@ html{ scroll-behavior: smooth; }
 }
 .accordion .nested[open]{ border-color:var(--accent); }
 
-/* Liste file dentro l'accordion */
+/* ===== Liste file ===== */
 .file-list{ list-style:none; margin:.4rem; padding:.2rem; }
 .file-list li + li{ margin-top:.35rem; }
 
-/* ===== Documenti “fuori categoria” ===== */
-.uncat{
-  margin-top: .8rem;
-  padding-top: .4rem;
-  border-top: 1px dashed var(--border);
-}
-.uncat-title{
-  margin:.6rem 0 .4rem;
-  font-size:1rem;
+.file-list a{
+  display:flex; align-items:center; gap:.5rem;
   color:var(--text-strong);
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  text-decoration:none;
+  padding:.55rem .8rem;
+  font-weight:500;
+  transition:all .2s ease;
 }
-.uncat-files{
-  list-style:none;
-  margin:.2rem 0 0;
-  padding:0;
+.file-list a::before{ content:"📄"; opacity:.8; }
+.file-list a[href$=".pdf"]::before{ content:"📕"; }
+.file-list a[href$=".zip"]::before{ content:"📦"; }
+.file-list a:hover,
+.file-list a:focus-visible{
+  border-color:var(--accent);
+  color:var(--accent);
+  box-shadow:0 0 0 2px rgba(96,165,250,.2);
 }
-.uncat-files li + li{ margin-top:.35rem; }
 
-/* ===== Utility: skip-link / visually-hidden ===== */
+/* ===== Team ===== */
+.centered{text-align:center;}
+.team{
+  list-style:none; margin:1.2rem auto 0; padding:0; max-width:60rem;
+  display:grid; gap:1rem; grid-template-columns:repeat(auto-fit, minmax(16rem,1fr));
+}
+.card{
+  background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+  padding:1rem; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,.25);
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.card:hover{ border-color:var(--accent); }
+.card strong{ color:var(--text-strong); display:block; margin-bottom:.25rem; }
+.muted{ color:var(--muted); }
+
+.pill{
+  display:inline-block; padding:.45rem .7rem; border:1px solid var(--border);
+  border-radius:1rem; background:var(--panel); color:var(--text);
+  text-decoration:none; transition:border-color .2s ease, color .2s ease, box-shadow .2s ease;
+}
+.pill:hover{ border-color:var(--accent); color:var(--accent); }
+.pill:focus-visible{ outline:none; box-shadow:var(--ring); border-color:var(--accent); }
+
+/* ===== Footer ===== */
+.footer{
+  background:var(--panel); border-top:1px solid var(--border);
+  text-align:center; color:var(--muted); padding:.6rem 0;
+}
+
+/* ===== Accessibilità & Utility ===== */
+a:focus-visible { outline:none; box-shadow:var(--ring); border-color:var(--accent); }
+section[id]{ scroll-margin-top:80px; } /* evita overlap con header sticky */
+html{ scroll-behavior:smooth; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; scroll-behavior:auto !important; }
+}
+
+/* ===== Skip link / visually hidden ===== */
 .skip-link{
   position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
 }
@@ -166,51 +153,4 @@ html{ scroll-behavior: smooth; }
   position:absolute !important; clip:rect(1px, 1px, 1px, 1px);
   padding:0 !important; border:0 !important; height:1px !important; width:1px !important;
   overflow:hidden; white-space:nowrap;
-}
-
-/* ===== File list links (migliorato) ===== */
-.file-list a {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-
-  color: var(--text-strong);            /* testo bianco */
-  background: var(--panel);             /* pannello scuro */
-  border: 1px solid var(--border);      /* bordo tenue */
-  border-radius: var(--radius);
-  text-decoration: none;
-
-  padding: .55rem .8rem;
-  font-weight: 500;
-  transition: all .2s ease;
-}
-
-/* Icona 📄 prima del nome file */
-.file-list a::before {
-  content: "📄";
-  font-size: 1rem;
-  opacity: 0.8;
-}
-
-.file-list a {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  color: var(--text-strong);
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  text-decoration: none;
-  padding: .55rem .8rem;
-  font-weight: 500;
-  transition: all .2s ease;
-}
-.file-list a::before { content: "📄"; opacity: 0.8; }
-.file-list a[href$=".pdf"]::before { content: "📕"; }
-.file-list a[href$=".zip"]::before { content: "📦"; }
-.file-list a:hover,
-.file-list a:focus-visible {
-  border-color: var(--accent);
-  color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(96,165,250,0.2);
 }
