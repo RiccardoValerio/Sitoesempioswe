@@ -8,13 +8,14 @@ layout: null
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gruppo Atlas — SWE 25/26</title>
-  <meta name="description" content="Sito del progetto di Ingegneria del Software 2025/2026">
+  <meta name="description" content="Sito del gruppo Atlas per il progetto di Ingegneria del Software 2025/2026">
   <link rel="stylesheet" href="{{ site.baseurl }}/css/style.css?v={{ site.github.build_revision | default: site.time | date: '%s' }}">
 </head>
 <body>
 
   <a href="#main" class="skip-link visually-hidden">Salta al contenuto</a>
 
+  <!-- HEADER -->
   <header class="header" role="banner">
     <div class="container header-row">
       <a href="#top" class="brand" aria-label="Home Atlas">
@@ -22,15 +23,18 @@ layout: null
         <span>Atlas</span>
       </a>
       <nav class="nav" aria-label="Navigazione principale">
-        {%- for s in site.data.sections.sections -%}
-          <a href="#{{ s.id }}">{{ s.title | split: " — " | first }}</a>
-        {%- endfor -%}
+        <a href="#pb">PB</a>
+        <a href="#rtb">RTB</a>
+        <a href="#candidatura">Candidatura</a>
+        <a href="#presentazione">Presentazione</a>
         <a href="#team">Team</a>
       </nav>
     </div>
   </header>
 
   <main id="main" class="container">
+
+    <!-- HERO -->
     <section id="top" class="hero">
       <img src="{{ site.baseurl }}/img/AtlasLogo.png" alt="Logo Atlas" class="hero-logo" loading="lazy">
       <h1>Gruppo Atlas</h1>
@@ -38,10 +42,160 @@ layout: null
       <a class="btn" href="https://github.com/AtlasTeam9" target="_blank" rel="noopener">Repository GitHub</a>
     </section>
 
-    {%- comment -%} Render delle sezioni dall'ordine del YAML {%- endcomment -%}
-    {%- for s in site.data.sections.sections -%}
-      {% include section.html section=s %}
-    {%- endfor -%}
+    {%- assign PDF = "pdf" -%}
+    {%- assign PDFMD = "pdf,md" -%}
+
+    <!-- ========== PB (PRIMA) ========== -->
+    {%- capture pb_doc_int -%}{% include list-files.html dir="/docs/pb/documenti/interni"  exts=PDFMD %}{%- endcapture -%}{% assign pb_doc_int = pb_doc_int | strip %}
+    {%- capture pb_doc_est -%}{% include list-files.html dir="/docs/pb/documenti/esterni"  exts=PDFMD %}{%- endcapture -%}{% assign pb_doc_est = pb_doc_est | strip %}
+    {%- capture pb_verb_int -%}{% include list-files.html dir="/docs/pb/verbali/interni"   exts=PDF   %}{%- endcapture -%}{% assign pb_verb_int = pb_verb_int | strip %}
+    {%- capture pb_verb_est -%}{% include list-files.html dir="/docs/pb/verbali/esterni"   exts=PDF   %}{%- endcapture -%}{% assign pb_verb_est = pb_verb_est | strip %}
+    {%- capture pb_extra    -%}{% include list-files.html dir="/docs/pb/extra"             exts=PDFMD %}{%- endcapture -%}{% assign pb_extra = pb_extra | strip %}
+
+    {% assign has_pb_doc = pb_doc_int != "" or pb_doc_est != "" %}
+    {% assign has_pb_ver = pb_verb_int != "" or pb_verb_est != "" %}
+    {% assign has_pb_any = has_pb_doc or has_pb_ver or pb_extra != "" %}
+
+    <section id="pb" class="section">
+      <h2>PB — Product Baseline</h2>
+
+      {% if has_pb_doc %}
+      <details class="accordion" open>
+        <summary><span class="acc-title">Documenti</span></summary>
+        {% if pb_doc_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ pb_doc_int }}</details>{% endif %}
+        {% if pb_doc_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ pb_doc_est }}</details>{% endif %}
+      </details>
+      {% endif %}
+
+      {% if has_pb_ver %}
+      <details class="accordion">
+        <summary><span class="acc-title">Verbali</span></summary>
+        {% if pb_verb_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ pb_verb_int }}</details>{% endif %}
+        {% if pb_verb_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ pb_verb_est }}</details>{% endif %}
+      </details>
+      {% endif %}
+
+      {% if pb_extra != "" %}
+      <div class="uncat">
+        <h3 class="uncat-title">Altri documenti</h3>
+        {{ pb_extra }}
+      </div>
+      {% endif %}
+    </section>
+
+    <!-- ========== RTB (SECONDA) ========== -->
+    {%- capture rtb_doc_int -%}{% include list-files.html dir="/docs/rtb/documenti/interni"  exts=PDFMD %}{%- endcapture -%}{% assign rtb_doc_int = rtb_doc_int | strip %}
+    {%- capture rtb_doc_est -%}{% include list-files.html dir="/docs/rtb/documenti/esterni"  exts=PDFMD %}{%- endcapture -%}{% assign rtb_doc_est = rtb_doc_est | strip %}
+    {%- capture rtb_verb_int -%}{% include list-files.html dir="/docs/rtb/verbali/interni"   exts=PDF   %}{%- endcapture -%}{% assign rtb_verb_int = rtb_verb_int | strip %}
+    {%- capture rtb_verb_est -%}{% include list-files.html dir="/docs/rtb/verbali/esterni"   exts=PDF   %}{%- endcapture -%}{% assign rtb_verb_est = rtb_verb_est | strip %}
+    {%- capture rtb_extra    -%}{% include list-files.html dir="/docs/rtb/extra"             exts=PDFMD %}{%- endcapture -%}{% assign rtb_extra = rtb_extra | strip %}
+
+    {% assign has_rtb_doc = rtb_doc_int != "" or rtb_doc_est != "" %}
+    {% assign has_rtb_ver = rtb_verb_int != "" or rtb_verb_est != "" %}
+    {% assign has_rtb_any = has_rtb_doc or has_rtb_ver or rtb_extra != "" %}
+
+    <section id="rtb" class="section">
+      <h2>RTB — Requirements &amp; Technology Baseline</h2>
+
+      {% if has_rtb_doc %}
+      <details class="accordion" open>
+        <summary><span class="acc-title">Documenti</span></summary>
+        {% if rtb_doc_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ rtb_doc_int }}</details>{% endif %}
+        {% if rtb_doc_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ rtb_doc_est }}</details>{% endif %}
+      </details>
+      {% endif %}
+
+      {% if has_rtb_ver %}
+      <details class="accordion">
+        <summary><span class="acc-title">Verbali</span></summary>
+        {% if rtb_verb_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ rtb_verb_int }}</details>{% endif %}
+        {% if rtb_verb_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ rtb_verb_est }}</details>{% endif %}
+      </details>
+      {% endif %}
+
+      {% if rtb_extra != "" %}
+      <div class="uncat">
+        <h3 class="uncat-title">Altri documenti</h3>
+        {{ rtb_extra }}
+      </div>
+      {% endif %}
+    </section>
+
+    <!-- ========== CANDIDATURA (TERZA) ========== -->
+    {%- capture cand_doc_int -%}{% include list-files.html dir="/docs/candidatura/documenti/interni"  exts=PDFMD %}{%- endcapture -%}{% assign cand_doc_int = cand_doc_int | strip %}
+    {%- capture cand_doc_est -%}{% include list-files.html dir="/docs/candidatura/documenti/esterni"  exts=PDFMD %}{%- endcapture -%}{% assign cand_doc_est = cand_doc_est | strip %}
+    {%- capture cand_verb_int -%}{% include list-files.html dir="/docs/candidatura/verbali/interni"   exts=PDF   %}{%- endcapture -%}{% assign cand_verb_int = cand_verb_int | strip %}
+    {%- capture cand_verb_est -%}{% include list-files.html dir="/docs/candidatura/verbali/esterni"   exts=PDF   %}{%- endcapture -%}{% assign cand_verb_est = cand_verb_est | strip %}
+    {%- capture cand_extra    -%}{% include list-files.html dir="/docs/candidatura/extra"             exts=PDFMD %}{%- endcapture -%}{% assign cand_extra = cand_extra | strip %}
+
+    {% assign has_cand_doc = cand_doc_int != "" or cand_doc_est != "" %}
+    {% assign has_cand_ver = cand_verb_int != "" or cand_verb_est != "" %}
+    {% assign has_cand_any = has_cand_doc or has_cand_ver or cand_extra != "" %}
+
+    <section id="candidatura" class="section">
+      <h2>Candidatura</h2>
+
+      {% if has_cand_doc %}
+      <details class="accordion" open>
+        <summary><span class="acc-title">Documenti</span></summary>
+        {% if cand_doc_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ cand_doc_int }}</details>{% endif %}
+        {% if cand_doc_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ cand_doc_est }}</details>{% endif %}
+      </details>
+      {% endif %}
+
+      {% if has_cand_ver %}
+      <details class="accordion">
+        <summary><span class="acc-title">Verbali</span></summary>
+        {% if cand_verb_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ cand_verb_int }}</details>{% endif %}
+        {% if cand_verb_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ cand_verb_est }}</details>{% endif %}
+      </details>
+      {% endif %}
+
+      {% if cand_extra != "" %}
+      <div class="uncat">
+        <h3 class="uncat-title">Altri documenti</h3>
+        {{ cand_extra }}
+      </div>
+      {% endif %}
+    </section>
+
+    <!-- ========== PRESENTAZIONE (QUARTA) ========== -->
+    {%- capture pr_doc_int -%}{% include list-files.html dir="/docs/presentazione/documenti/interni"  exts=PDFMD %}{%- endcapture -%}{% assign pr_doc_int = pr_doc_int | strip %}
+    {%- capture pr_doc_est -%}{% include list-files.html dir="/docs/presentazione/documenti/esterni"  exts=PDFMD %}{%- endcapture -%}{% assign pr_doc_est = pr_doc_est | strip %}
+    {%- capture pr_verb_int -%}{% include list-files.html dir="/docs/presentazione/verbali/interni"   exts=PDF   %}{%- endcapture -%}{% assign pr_verb_int = pr_verb_int | strip %}
+    {%- capture pr_verb_est -%}{% include list-files.html dir="/docs/presentazione/verbali/esterni"   exts=PDF   %}{%- endcapture -%}{% assign pr_verb_est = pr_verb_est | strip %}
+    {%- capture pr_extra    -%}{% include list-files.html dir="/docs/presentazione/extra"             exts=PDFMD %}{%- endcapture -%}{% assign pr_extra = pr_extra | strip %}
+
+    {% assign has_pr_doc = pr_doc_int != "" or pr_doc_est != "" %}
+    {% assign has_pr_ver = pr_verb_int != "" or pr_verb_est != "" %}
+    {% assign has_pr_any = has_pr_doc or has_pr_ver or pr_extra != "" %}
+
+    <section id="presentazione" class="section">
+      <h2>Presentazione &amp; Comunicazioni</h2>
+
+      {% if has_pr_doc %}
+      <details class="accordion" open>
+        <summary><span class="acc-title">Documenti</span></summary>
+        {% if pr_doc_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ pr_doc_int }}</details>{% endif %}
+        {% if pr_doc_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ pr_doc_est }}</details>{% endif %}
+      </details>
+      {% endif %}
+
+      {% if has_pr_ver %}
+      <details class="accordion">
+        <summary><span class="acc-title">Verbali</span></summary>
+        {% if pr_verb_int != "" %}<details class="accordion nested" open><summary><span class="acc-title">Interni</span></summary>{{ pr_verb_int }}</details>{% endif %}
+        {% if pr_verb_est != "" %}<details class="accordion nested"><summary><span class="acc-title">Esterni</span></summary>{{ pr_verb_est }}</details>{% endif %}
+      </details>
+      {% endif %}
+
+      {% if pr_extra != "" %}
+      <div class="uncat">
+        <h3 class="uncat-title">Altri documenti</h3>
+        {{ pr_extra }}
+      </div>
+      {% endif %}
+    </section>
 
     <!-- TEAM -->
     <section id="team" class="section">
@@ -61,6 +215,7 @@ layout: null
         <a class="pill" href="mailto:team9.atlas@gmail.com">team9.atlas@gmail.com</a>
       </p>
     </section>
+
   </main>
 
   <footer class="footer">
