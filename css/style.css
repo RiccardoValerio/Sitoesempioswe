@@ -192,7 +192,22 @@ html{ scroll-behavior: smooth; }
   opacity: 0.8;
 }
 
-/* Hover e focus eleganti */
+.file-list a {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: var(--text-strong);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  padding: .55rem .8rem;
+  font-weight: 500;
+  transition: all .2s ease;
+}
+.file-list a::before { content: "📄"; opacity: 0.8; }
+.file-list a[href$=".pdf"]::before { content: "📕"; }
+.file-list a[href$=".zip"]::before { content: "📦"; }
 .file-list a:hover,
 .file-list a:focus-visible {
   border-color: var(--accent);
@@ -200,10 +215,9 @@ html{ scroll-behavior: smooth; }
   box-shadow: 0 0 0 2px rgba(96,165,250,0.2);
 }
 
-/* Spazio tra gli elementi */
-.file-list li + li {
-  margin-top: .4rem;
+.file-list li a{
+  color: var(--text-strong) !important;
+  background: var(--panel) !important;
+  border: 1px solid var(--border) !important;
 }
-
-.file-list a[href$=".pdf"]::before { content: "📕"; }
-.file-list a[href$=".zip"]::before { content: "📦"; }
+.file-list li a::before{ content:"📕" !important; }
