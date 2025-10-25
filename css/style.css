@@ -214,10 +214,3 @@ html{ scroll-behavior: smooth; }
   color: var(--accent);
   box-shadow: 0 0 0 2px rgba(96,165,250,0.2);
 }
-
-.file-list li a{
-  color: var(--text-strong) !important;
-  background: var(--panel) !important;
-  border: 1px solid var(--border) !important;
-}
-.file-list li a::before{ content:"📕" !important; }
