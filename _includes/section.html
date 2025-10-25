@@ -3,6 +3,7 @@ Render di una sezione dal dato 'section' (id, title, groups[*]).
 Ogni group può avere:
 - subsections: array di { title, dir, exts }
 - oppure un semplice { title, dir, exts } (usato per "Extra").
+Tutti gli accordion sono CHIUSI di default (niente attributo 'open').
 {%- endcomment -%}
 
 {%- assign s = include.section -%}
@@ -16,7 +17,7 @@ Ogni group può avere:
           {%- capture block -%}{% include list-files.html dir=sub.dir exts=sub.exts %}{%- endcapture -%}
           {%- assign block = block | strip -%}
           {%- if block != "" -%}
-            <details class="accordion nested"{% if forloop.first %} open{% endif %}>
+            <details class="accordion nested">
               <summary><span class="acc-title">{{ sub.title }}</span></summary>
               {{ block }}
             </details>
@@ -25,7 +26,7 @@ Ogni group può avere:
       {%- endcapture -%}
       {%- assign rendered_subs_stripped = rendered_subs | strip -%}
       {%- if rendered_subs_stripped != "" -%}
-        <details class="accordion" open>
+        <details class="accordion">
           <summary><span class="acc-title">{{ g.title }}</span></summary>
           {{ rendered_subs_stripped }}
         </details>
