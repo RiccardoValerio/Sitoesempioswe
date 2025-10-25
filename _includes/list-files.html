@@ -1,31 +1,51 @@
 {%- comment -%}
-Genera <ul class="file-list"> con i file dentro include.dir
-Usa include.exts = "pdf,md" (di default solo "pdf")
-Compatibile con GitHub Pages (Jekyll 3.x, Liquid classico)
+Render di una sezione da dati YAML.
+Parametri: section (oggetto con id, title, groups[*])
+Ogni group può avere:
+  - subsections: array di { title, dir, exts }
+  - oppure: { title, dir, exts } semplice (diventa "Extra")
 {%- endcomment -%}
 
-{%- assign dir  = include.dir  | default: "" -%}
-{%- assign exts = include.exts | default: "pdf" | downcase | split: "," -%}
+{%- assign s = include.section -%}
+<section id="{{ s.id }}" class="section">
+  <h2>{{ s.title }}</h2>
 
-{%- comment -%} Prendi i file statici che hanno il path dentro dir {%- endcomment -%}
-{%- assign cand = site.static_files | where_exp: "f", "f.path contains dir" | sort: "path" -%}
+  {%- for g in s.groups -%}
+    {%- assign has_any = false -%}
 
-{%- assign any = false -%}
-{%- for f in cand -%}
-  {%- assign ext = f.extname | remove: "." | downcase -%}
-  {%- if exts contains ext -%}
-    {%- assign any = true -%}{%- break -%}
-  {%- endif -%}
-{%- endfor -%}
+    {%- if g.subsections and g.subsections.size > 0 -%}
+      {%- comment -%} Gruppo con sottosezioni {%- endcomment -%}
+      {%- capture rendered_subs -%}
+        {%- for sub in g.subsections -%}
+          {%- capture block -%}{% include list-files.html dir=sub.dir exts=sub.exts %}{%- endcapture -%}
+          {%- assign block = block | strip -%}
+          {%- if block != "" -%}
+            {%- assign has_any = true -%}
+            <details class="accordion nested"{% if forloop.first %} open{% endif %}>
+              <summary><span class="acc-title">{{ sub.title }}</span></summary>
+              {{ block }}
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+      {%- if has_any -%}
+        <details class="accordion" open>
+          <summary><span class="acc-title">{{ g.title }}</span></summary>
+          {{ rendered_subs }}
+        </details>
+      {%- endif -%}
 
-{%- if any -%}
-<ul class="file-list">
-  {%- for f in cand -%}
-    {%- assign ext = f.extname | remove: "." | downcase -%}
-    {%- if exts contains ext -%}
-      {%- assign filename = f.path | split: "/" | last -%}
-      <li><a href="{{ site.baseurl }}{{ f.path }}" target="_blank" rel="noopener">{{ filename }}</a></li>
+    {%- else -%}
+      {%- comment -%} Gruppo semplice (es. Extra) {%- endcomment -%}
+      {%- capture simple_block -%}{% include list-files.html dir=g.dir exts=g.exts %}{%- endcapture -%}
+      {%- assign simple_block = simple_block | strip -%}
+      {%- if simple_block != "" -%}
+        <div class="uncat">
+          <h3 class="uncat-title">{{ g.title }}</h3>
+          {{ simple_block }}
+        </div>
+      {%- endif -%}
     {%- endif -%}
+
   {%- endfor -%}
-</ul>
-{%- endif -%}
+</section>

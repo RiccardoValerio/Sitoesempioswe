@@ -1,0 +1,92 @@
+sections:
+  - id: pb
+    title: "PB — Product Baseline"
+    groups:
+      - title: "Documenti"
+        subsections:
+          - title: "Interni"
+            dir: "/docs/pb/documenti/interni"
+            exts: "pdf,md,zip"   # 👈 puoi aggiungere/rimuovere tipi
+          - title: "Esterni"
+            dir: "/docs/pb/documenti/esterni"
+            exts: "pdf,zip"
+      - title: "Verbali"
+        subsections:
+          - title: "Interni"
+            dir: "/docs/pb/verbali/interni"
+            exts: "pdf"
+          - title: "Esterni"
+            dir: "/docs/pb/verbali/esterni"
+            exts: "pdf"
+      - title: "Extra"
+        dir: "/docs/pb/extra"
+        exts: "pdf,zip"
+
+  - id: rtb
+    title: "RTB — Requirements & Technology Baseline"
+    groups:
+      - title: "Documenti"
+        subsections:
+          - title: "Interni"
+            dir: "/docs/rtb/documenti/interni"
+            exts: "pdf,md"
+          - title: "Esterni"
+            dir: "/docs/rtb/documenti/esterni"
+            exts: "pdf,md"
+      - title: "Verbali"
+        subsections:
+          - title: "Interni"
+            dir: "/docs/rtb/verbali/interni"
+            exts: "pdf"
+          - title: "Esterni"
+            dir: "/docs/rtb/verbali/esterni"
+            exts: "pdf"
+      - title: "Extra"
+        dir: "/docs/rtb/extra"
+        exts: "pdf,md"
+
+  - id: candidatura
+    title: "Candidatura"
+    groups:
+      - title: "Documenti"
+        subsections:
+          - title: "Interni"
+            dir: "/docs/candidatura/documenti/interni"
+            exts: "pdf,md"
+          - title: "Esterni"
+            dir: "/docs/candidatura/documenti/esterni"
+            exts: "pdf,md"
+      - title: "Verbali"
+        subsections:
+          - title: "Interni"
+            dir: "/docs/candidatura/verbali/interni"
+            exts: "pdf"
+          - title: "Esterni"
+            dir: "/docs/candidatura/verbali/esterni"
+            exts: "pdf"
+      - title: "Extra"
+        dir: "/docs/candidatura/extra"
+        exts: "pdf,md"
+
+  - id: presentazione
+    title: "Presentazione & Comunicazioni"
+    groups:
+      - title: "Documenti"
+        subsections:
+          - title: "Interni"
+            dir: "/docs/presentazione/documenti/interni"
+            exts: "pdf,md"
+          - title: "Esterni"
+            dir: "/docs/presentazione/documenti/esterni"
+            exts: "pdf,md"
+      - title: "Verbali"
+        subsections:
+          - title: "Interni"
+            dir: "/docs/presentazione/verbali/interni"
+            exts: "pdf"
+          - title: "Esterni"
+            dir: "/docs/presentazione/verbali/esterni"
+            exts: "pdf"
+      - title: "Extra"
+        dir: "/docs/presentazione/extra"
+        exts: "pdf,md,zip"
