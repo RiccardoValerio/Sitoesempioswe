@@ -1,6 +1,21 @@
-title: Sito SWE Atlas
-baseurl: "/Sitoesempioswe"   # << nome repo, con lo slash iniziale
-url: "https://riccardovalerio.github.io"
+title: "Gruppo Atlas — SWE 2025/2026"
+description: "Sito del progetto di Ingegneria del Software del gruppo Atlas (PD1, Università di Padova)"
+baseurl: "/Sitoesempioswe"  # ⚠️ es. "/atlas-site" oppure "/Sitoesempioswe"
+url: "https://riccardovalerio.github.io"  # es. "https://riccardovalerio.github.io"
+
+# Configurazione minima per GitHub Pages
 markdown: kramdown
+highlighter: rouge
 theme: null
-plugins: []                  # nessun plugin (compatibile con GitHub Pages)
+exclude:
+  - README.md
+  - .github/
+  - Gemfile
+  - Gemfile.lock
+
+# Abilita l'uso del file include per elencare i documenti
+include:
+  - _includes/list-files.html
+
+# Build locale (solo se provi in locale)
+plugins: []

@@ -1,27 +1,31 @@
-{%- comment -%}
-Usage:
-{% include list-files.html dir:"/docs/candidatura/documenti/interni", exts:"pdf,md" %}
-Rende una <ul> con i file; se non trova nulla, non rende niente.
-{%- endcomment -%}
-{%- assign _dir = include.dir | default:"" -%}
-{%- assign _exts = include.exts | default:"pdf" | split:"," | uniq -%}
-{%- assign _exts = _exts | map: "strip" -%}
+{%- assign dir = include.dir | default: "" -%}
+{%- assign exts = include.exts | default: "pdf" | split: "," -%}
 
-{%- assign files = site.static_files
-  | where_exp: "f", "f.path contains _dir" -%}
+{%- assign files = site.static_files | where_exp: "file", "file.path contains dir" -%}
 
-{%- assign out = "" -%}
-{%- for f in files -%}
-  {%- assign ext = f.extname | remove_first: "." | downcase -%}
-  {%- if _exts contains ext -%}
-    {%- capture out -%}{{ out }}
-<li><a class="file-link" href="{{ site.baseurl }}{{ f.path }}" target="_blank" rel="noopener">{{ f.name }}</a></li>
-{%- endcapture -%}
+{%- assign filtered = "" -%}
+{%- for file in files -%}
+  {%- assign path = file.path | downcase -%}
+  {%- assign matched = false -%}
+  {%- for ext in exts -%}
+    {%- assign ext_str = "." | append: ext | strip -%}
+    {%- if path endswith ext_str -%}
+      {%- assign matched = true -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if matched -%}
+    {%- assign filtered = filtered | append: file.path | append: ";" -%}
   {%- endif -%}
 {%- endfor -%}
 
-{%- if out != "" -%}
+{%- assign list = filtered | split: ";" | sort -%}
+{%- if list.size > 0 -%}
 <ul class="file-list">
-{{ out -}}
+  {%- for path in list -%}
+    {%- if path != "" -%}
+      {%- assign filename = path | split: "/" | last -%}
+      <li><a href="{{ site.baseurl }}{{ path }}" target="_blank" rel="noopener">{{ filename }}</a></li>
+    {%- endif -%}
+  {%- endfor -%}
 </ul>
 {%- endif -%}
