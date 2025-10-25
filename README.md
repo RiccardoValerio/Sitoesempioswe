@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="img/AtlasLogo.png" alt="Logo Atlas" width="120" style="border-radius:50%;">
-</p>
-
 🌐 Sito del Gruppo Atlas – Progetto SWE 2025/2026
 
 Questo repository contiene il sito statico del gruppo Atlas per il progetto di Ingegneria del Software dell’Università di Padova.
