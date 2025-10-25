@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="img/AtlasLogo.png" width="90" alt="Logo Atlas">
+</p>
 
 🌐 Sito del Gruppo Atlas – Progetto SWE 2025/2026
 
