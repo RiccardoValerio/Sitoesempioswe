@@ -1,5 +1,5 @@
-<p style="border-radius: 50%" align="center">
-  <img src="img/AtlasLogo.png" width="150" alt="Logo Atlas">
+<p align="center">
+  <img src="img/AtlasLogo.png" alt="Logo Atlas" width="120" style="border-radius:50%;">
 </p>
 
 🌐 Sito del Gruppo Atlas – Progetto SWE 2025/2026
