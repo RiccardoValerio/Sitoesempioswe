@@ -167,3 +167,43 @@ html{ scroll-behavior: smooth; }
   padding:0 !important; border:0 !important; height:1px !important; width:1px !important;
   overflow:hidden; white-space:nowrap;
 }
+
+/* ===== File list links (migliorato) ===== */
+.file-list a {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+
+  color: var(--text-strong);            /* testo bianco */
+  background: var(--panel);             /* pannello scuro */
+  border: 1px solid var(--border);      /* bordo tenue */
+  border-radius: var(--radius);
+  text-decoration: none;
+
+  padding: .55rem .8rem;
+  font-weight: 500;
+  transition: all .2s ease;
+}
+
+/* Icona 📄 prima del nome file */
+.file-list a::before {
+  content: "📄";
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Hover e focus eleganti */
+.file-list a:hover,
+.file-list a:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(96,165,250,0.2);
+}
+
+/* Spazio tra gli elementi */
+.file-list li + li {
+  margin-top: .4rem;
+}
+
+.file-list a[href$=".pdf"]::before { content: "📕"; }
+.file-list a[href$=".zip"]::before { content: "📦"; }
