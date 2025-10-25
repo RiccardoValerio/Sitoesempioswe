@@ -1,30 +1,34 @@
-{%- assign dir = include.dir | default: "" -%}
-{%- assign exts = include.exts | default: "pdf" | split: "," -%}
+{%- assign dir  = include.dir  | default: "" -%}
+{%- assign exts = include.exts | default: "pdf" | downcase | split: "," -%}
 
-{%- assign files = site.static_files | where_exp: "file", "file.path contains dir" -%}
+{%- comment -%} Prendiamo tutti i file statici dentro la cartella indicata {%- endcomment -%}
+{%- assign files = site.static_files | where_exp: "f", "f.path contains dir" -%}
 
-{%- assign filtered = "" -%}
-{%- for file in files -%}
-  {%- assign path = file.path | downcase -%}
+{%- assign paths = "" -%}
+{%- for f in files -%}
+  {%- assign fname = f.path | split: "/" | last -%}
+  {%- assign fext  = fname  | split: "." | last | downcase -%}
+
   {%- assign matched = false -%}
-  {%- for ext in exts -%}
-    {%- assign ext_str = "." | append: ext | strip -%}
-    {%- if path endswith ext_str -%}
+  {%- for e in exts -%}
+    {%- assign e_trim = e | strip -%}
+    {%- if fext == e_trim -%}
       {%- assign matched = true -%}
     {%- endif -%}
   {%- endfor -%}
+
   {%- if matched -%}
-    {%- assign filtered = filtered | append: file.path | append: ";" -%}
+    {%- assign paths = paths | append: f.path | append: ";" -%}
   {%- endif -%}
 {%- endfor -%}
 
-{%- assign list = filtered | split: ";" | sort -%}
+{%- assign list = paths | split: ";" | sort -%}
 {%- if list.size > 0 -%}
 <ul class="file-list">
-  {%- for path in list -%}
-    {%- if path != "" -%}
-      {%- assign filename = path | split: "/" | last -%}
-      <li><a href="{{ site.baseurl }}{{ path }}" target="_blank" rel="noopener">{{ filename }}</a></li>
+  {%- for p in list -%}
+    {%- if p != "" -%}
+      {%- assign filename = p | split: "/" | last -%}
+      <li><a href="{{ site.baseurl }}{{ p }}" target="_blank" rel="noopener">{{ filename }}</a></li>
     {%- endif -%}
   {%- endfor -%}
 </ul>
