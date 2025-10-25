@@ -72,12 +72,12 @@ sections:
     title: "Presentazione & Comunicazioni"
     groups:
       - title: "Diapositive"
-          dir: "/docs/presentazione/diapositive"
-          exts: "pdf,md"
+        dir: "/docs/presentazione/diapositive"
+        exts: "pdf,md"
           
       - title: "Diari"
-          dir: "/docs/presentazione/diari"
-          exts: "pdf"
+        dir: "/docs/presentazione/diari"
+        exts: "pdf"
 
       - title: "Extra"
         dir: "/docs/presentazione/extra"
