@@ -6,7 +6,7 @@ sections:
         subsections:
           - title: "Interni"
             dir: "/docs/pb/documenti/interni"
-            exts: "pdf,md,zip"   # 👈 puoi aggiungere/rimuovere tipi
+            exts: "pdf,md,zip"
           - title: "Esterni"
             dir: "/docs/pb/documenti/esterni"
             exts: "pdf,zip"

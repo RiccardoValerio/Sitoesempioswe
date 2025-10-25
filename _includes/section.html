@@ -1,0 +1,44 @@
+{%- comment -%}
+Render di una sezione dal dato 'section' (id, title, groups[*]).
+Ogni group può avere:
+- subsections: array di { title, dir, exts }
+- oppure un semplice { title, dir, exts } (usato per "Extra").
+{%- endcomment -%}
+
+{%- assign s = include.section -%}
+<section id="{{ s.id }}" class="section">
+  <h2>{{ s.title }}</h2>
+
+  {%- for g in s.groups -%}
+    {%- if g.subsections and g.subsections.size > 0 -%}
+      {%- capture rendered_subs -%}
+        {%- for sub in g.subsections -%}
+          {%- capture block -%}{% include list-files.html dir=sub.dir exts=sub.exts %}{%- endcapture -%}
+          {%- assign block = block | strip -%}
+          {%- if block != "" -%}
+            <details class="accordion nested"{% if forloop.first %} open{% endif %}>
+              <summary><span class="acc-title">{{ sub.title }}</span></summary>
+              {{ block }}
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+      {%- assign rendered_subs_stripped = rendered_subs | strip -%}
+      {%- if rendered_subs_stripped != "" -%}
+        <details class="accordion" open>
+          <summary><span class="acc-title">{{ g.title }}</span></summary>
+          {{ rendered_subs_stripped }}
+        </details>
+      {%- endif -%}
+    {%- else -%}
+      {%- capture simple_block -%}{% include list-files.html dir=g.dir exts=g.exts %}{%- endcapture -%}
+      {%- assign simple_block = simple_block | strip -%}
+      {%- if simple_block != "" -%}
+        <div class="uncat">
+          <h3 class="uncat-title">{{ g.title }}</h3>
+          {{ simple_block }}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+</section>
